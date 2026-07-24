@@ -1,0 +1,146 @@
+openapi: 3.1.0
+info:
+  title: Gimbal REST Applications Beacons API
+  version: v2
+  description: 'The Gimbal REST API manages proximity and location assets for the Gimbal platform operated by Paedae/Infillion: applications, places (geofences and beacons), beacons and their configurations, and communications (notifications and triggers). All requests and responses use JSON.'
+  contact:
+    name: Gimbal Support
+    url: https://support.gimbal.com/hc/en-us/
+  license:
+    name: Proprietary
+servers:
+- url: https://manager.gimbal.com/api
+  description: Gimbal Manager API
+security:
+- OrganizationServerApiKey: []
+tags:
+- name: Beacons
+paths:
+  /beacons:
+    get:
+      tags:
+      - Beacons
+      operationId: listBeacons
+      summary: Get all beacons (supports filtering and pagination)
+      responses:
+        '200':
+          description: Success
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      tags:
+      - Beacons
+      operationId: activateBeacon
+      summary: Activate beacon
+      responses:
+        '200':
+          description: Success
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+  /beacons/{factoryId}:
+    parameters:
+    - name: factoryId
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Beacons
+      operationId: getBeacon
+      summary: Get beacon by factory ID
+      responses:
+        '200':
+          description: Success
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      tags:
+      - Beacons
+      operationId: updateBeacon
+      summary: Update beacon metadata
+      responses:
+        '200':
+          description: Success
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags:
+      - Beacons
+      operationId: deactivateBeacon
+      summary: Deactivate beacon
+      responses:
+        '200':
+          description: Success
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /beacons/{factoryId}/configuration:
+    parameters:
+    - name: factoryId
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Beacons
+      operationId: getBeaconConfiguration
+      summary: Get beacon configuration
+      responses:
+        '200':
+          description: Success
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /beacons/{factoryId}/tags:
+    parameters:
+    - name: factoryId
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Beacons
+      operationId: getBeaconTags
+      summary: Get beacon tags
+      responses:
+        '200':
+          description: Success
+    post:
+      tags:
+      - Beacons
+      operationId: createBeaconTags
+      summary: Create beacon tags
+      responses:
+        '200':
+          description: Success
+    delete:
+      tags:
+      - Beacons
+      operationId: deleteBeaconTags
+      summary: Delete beacon tags
+      responses:
+        '200':
+          description: Success
+components:
+  responses:
+    Unprocessable:
+      description: Unprocessable Entity (422)
+    NotFound:
+      description: Resource Not Found (404)
+    Unauthorized:
+      description: Unauthorized (401)
+  securitySchemes:
+    OrganizationServerApiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Organization server API key passed as `Authorization: Token token=my_organization_server_api_key`.'
+    ProximityOAuth2:
+      type: oauth2
+      description: Some Proximity APIs require an OAuth 2.0 access token instead of the organization server API key.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://manager.gimbal.com/oauth/authorize
+          tokenUrl: https://manager.gimbal.com/oauth/token
+          scopes: {}

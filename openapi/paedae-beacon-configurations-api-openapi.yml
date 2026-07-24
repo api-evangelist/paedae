@@ -1,0 +1,94 @@
+openapi: 3.1.0
+info:
+  title: Gimbal REST Applications Beacon Configurations API
+  version: v2
+  description: 'The Gimbal REST API manages proximity and location assets for the Gimbal platform operated by Paedae/Infillion: applications, places (geofences and beacons), beacons and their configurations, and communications (notifications and triggers). All requests and responses use JSON.'
+  contact:
+    name: Gimbal Support
+    url: https://support.gimbal.com/hc/en-us/
+  license:
+    name: Proprietary
+servers:
+- url: https://manager.gimbal.com/api
+  description: Gimbal Manager API
+security:
+- OrganizationServerApiKey: []
+tags:
+- name: Beacon Configurations
+paths:
+  /beacon_configurations:
+    get:
+      tags:
+      - Beacon Configurations
+      operationId: listBeaconConfigurations
+      summary: Get all configurations
+      responses:
+        '200':
+          description: Success
+    post:
+      tags:
+      - Beacon Configurations
+      operationId: createBeaconConfiguration
+      summary: Create configuration
+      responses:
+        '200':
+          description: Success
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+  /beacon_configurations/{configurationId}:
+    parameters:
+    - name: configurationId
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Beacon Configurations
+      operationId: getBeaconConfigurationById
+      summary: Get specific configuration
+      responses:
+        '200':
+          description: Success
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      tags:
+      - Beacon Configurations
+      operationId: updateBeaconConfiguration
+      summary: Update configuration
+      responses:
+        '200':
+          description: Success
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags:
+      - Beacon Configurations
+      operationId: deleteBeaconConfiguration
+      summary: Delete configuration
+      responses:
+        '200':
+          description: Success
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unprocessable:
+      description: Unprocessable Entity (422)
+    NotFound:
+      description: Resource Not Found (404)
+  securitySchemes:
+    OrganizationServerApiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Organization server API key passed as `Authorization: Token token=my_organization_server_api_key`.'
+    ProximityOAuth2:
+      type: oauth2
+      description: Some Proximity APIs require an OAuth 2.0 access token instead of the organization server API key.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://manager.gimbal.com/oauth/authorize
+          tokenUrl: https://manager.gimbal.com/oauth/token
+          scopes: {}

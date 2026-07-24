@@ -1,0 +1,102 @@
+openapi: 3.1.0
+info:
+  title: Gimbal REST Applications API
+  version: v2
+  description: 'The Gimbal REST API manages proximity and location assets for the Gimbal platform operated by Paedae/Infillion: applications, places (geofences and beacons), beacons and their configurations, and communications (notifications and triggers). All requests and responses use JSON.'
+  contact:
+    name: Gimbal Support
+    url: https://support.gimbal.com/hc/en-us/
+  license:
+    name: Proprietary
+servers:
+- url: https://manager.gimbal.com/api
+  description: Gimbal Manager API
+security:
+- OrganizationServerApiKey: []
+tags:
+- name: Applications
+paths:
+  /v2/applications:
+    get:
+      tags:
+      - Applications
+      operationId: listApplications
+      summary: Retrieve all applications
+      responses:
+        '200':
+          description: Success
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      tags:
+      - Applications
+      operationId: createApplication
+      summary: Create new application
+      responses:
+        '200':
+          description: Success
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+  /v2/applications/{applicationId}:
+    parameters:
+    - name: applicationId
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Applications
+      operationId: getApplication
+      summary: Get single application with configuration
+      responses:
+        '200':
+          description: Success
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      tags:
+      - Applications
+      operationId: updateApplication
+      summary: Update application
+      responses:
+        '200':
+          description: Success
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+    delete:
+      tags:
+      - Applications
+      operationId: deleteApplication
+      summary: Delete application (contact support required)
+      responses:
+        '200':
+          description: Success
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unprocessable:
+      description: Unprocessable Entity (422)
+    NotFound:
+      description: Resource Not Found (404)
+    Unauthorized:
+      description: Unauthorized (401)
+  securitySchemes:
+    OrganizationServerApiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Organization server API key passed as `Authorization: Token token=my_organization_server_api_key`.'
+    ProximityOAuth2:
+      type: oauth2
+      description: Some Proximity APIs require an OAuth 2.0 access token instead of the organization server API key.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://manager.gimbal.com/oauth/authorize
+          tokenUrl: https://manager.gimbal.com/oauth/token
+          scopes: {}
