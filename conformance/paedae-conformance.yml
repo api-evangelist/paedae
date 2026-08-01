@@ -1,0 +1,36 @@
+generated: '2026-07-20'
+method: derived
+source: >-
+  Derived from openapi/paedae-rest-openapi.yml and docs.gimbal.com/rest.html
+type: Conformance
+provider: Paedae (Gimbal proximity platform)
+standards:
+  - id: oauth2
+    conforms: true
+    evidence: >-
+      OAuth 2.0 is used for select Proximity APIs and for the Gimbal Manager
+      portal login (manager.gimbal.com/auth/railsoauth, /oauth/authorize,
+      /oauth/token).
+  - id: oidc
+    conforms: false
+    evidence: >-
+      No OpenID Connect discovery document is published
+      (/.well-known/openid-configuration returns 404).
+  - id: rfc9457
+    conforms: false
+    evidence: >-
+      Errors use a Gimbal-specific numeric code envelope, not RFC 9457
+      application/problem+json.
+  - id: pagination
+    conforms: true
+    evidence: >-
+      Places and beacons collections support filtering and pagination per the
+      REST reference.
+  - id: idempotency
+    conforms: false
+    evidence: No idempotency-key mechanism is documented.
+  - id: webhooks
+    conforms: true
+    evidence: >-
+      Beacon sighting events are delivered via HTTP POST callbacks (Sightings
+      Callback).

@@ -1,0 +1,22 @@
+{
+  "provider": "paedae",
+  "sources": [
+    "paedae-applications-api-openapi.yml",
+    "paedae-beacon-configurations-api-openapi.yml",
+    "paedae-beacons-api-openapi.yml",
+    "paedae-communications-api-openapi.yml",
+    "paedae-places-api-openapi.yml"
+  ],
+  "outputs": [
+    "paedae-applications-api-openapi.yml",
+    "paedae-beacon-configurations-api-openapi.yml",
+    "paedae-beacons-api-openapi.yml",
+    "paedae-communications-api-openapi.yml",
+    "paedae-places-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

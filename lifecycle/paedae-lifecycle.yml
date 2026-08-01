@@ -1,0 +1,28 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.gimbal.com/rest.html ; https://status.gimbal.com
+type: Lifecycle
+provider: Paedae (Gimbal proximity platform)
+versioning:
+  scheme: path-prefix
+  current: v2
+  notes: >-
+    Manager REST resources are namespaced under /v2 (applications, places);
+    beacon and communication resources are unversioned. Mobile SDKs version
+    independently (iOS SDK v2, Android SDK v4).
+status_page:
+  url: http://status.gimbal.com
+  name: Gimbal System Status
+support:
+  knowledge_base: https://support.gimbal.com/hc/en-us/
+  portal: https://manager.gimbal.com
+deprecation:
+  policy_published: false
+  notes: >-
+    No formal deprecation/sunset policy (RFC 8594 Sunset/Deprecation headers)
+    is documented in the public reference.
+corporate_history:
+  - Paedae (500 Global portfolio) acquired the Gimbal proximity platform.
+  - paedae.com now redirects to gimbal.com.
+  - Gimbal is operated under Infillion (gimbal.com redirects to infillion.com);
+    the developer platform remains at docs.gimbal.com and manager.gimbal.com.

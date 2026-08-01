@@ -1,0 +1,39 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.gimbal.com/rest.html
+type: Conventions
+provider: Paedae (Gimbal proximity platform)
+auth_style:
+  primary: apiKey
+  header: Authorization
+  format: 'Token token=<organization_server_api_key>'
+  secondary: oauth2 (select Proximity APIs)
+  cross_ref: authentication/paedae-authentication.yml
+content_type:
+  request: application/json
+  response: application/json
+pagination:
+  style: query-parameters
+  supported_on:
+    - GET /v2/places
+    - GET /beacons
+  notes: >-
+    Places and beacons collections support filtering and pagination per the
+    reference; exact parameter names are not fully enumerated in the public docs.
+idempotency:
+  supported: false
+  notes: >-
+    No idempotency-key mechanism is documented. Create operations are plain POST.
+versioning:
+  style: path-prefix (/v2 on applications and places)
+  cross_ref: lifecycle/paedae-lifecycle.yml
+error_envelope:
+  style: numeric-code
+  notes: HTTP status code plus a Gimbal numeric error code (6000-9000) and message.
+  cross_ref: errors/paedae-problem-types.yml
+rate_limiting:
+  documented: false
+webhooks:
+  present: true
+  cross_ref: asyncapi/paedae-webhooks.yml
+docs: https://docs.gimbal.com/rest.html

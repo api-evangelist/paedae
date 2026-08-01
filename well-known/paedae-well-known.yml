@@ -1,0 +1,34 @@
+generated: '2026-07-20'
+method: probed
+source: Live HTTP probes 2026-07-20
+type: WellKnown
+provider: Paedae (Gimbal proximity platform)
+notes: >-
+  No .well-known resources are published on the Gimbal/Manager hosts. The docs
+  host returns 403 for well-known paths; the Manager host returns 404 for
+  OIDC/OAuth metadata. Recorded as honest negative results.
+probes:
+  - host: docs.gimbal.com
+    path: /.well-known/security.txt
+    status: 403
+    file: null
+  - host: docs.gimbal.com
+    path: /llms.txt
+    status: 403
+    file: null
+  - host: manager.gimbal.com
+    path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - host: manager.gimbal.com
+    path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - host: infillion.com
+    path: /.well-known/security.txt
+    status: 404
+    file: null
+  - host: infillion.com
+    path: /llms.txt
+    status: 404
+    file: null

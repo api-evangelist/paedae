@@ -1,0 +1,45 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  Verified on CocoaPods trunk (trunk.cocoapods.org/api/v1/pods/Gimbal) and
+  Maven Central (search.maven.org, g:com.gimbal.android.v4);
+  install docs at docs.gimbal.com
+type: Packages
+provider: Paedae (Gimbal proximity platform)
+packages:
+  - name: Gimbal
+    registry: cocoapods
+    ecosystem: ios
+    coordinate: Gimbal
+    latest_version: 2.97.1
+    official: true
+    url: https://cocoapods.org/pods/Gimbal
+    description: Gimbal iOS SDK v2 for proximity, geofencing, and beacon detection.
+  - name: gimbal-sdk
+    registry: maven-central
+    ecosystem: android
+    coordinate: com.gimbal.android.v4:gimbal-sdk
+    latest_version: 4.10.1
+    official: true
+    url: https://central.sonatype.com/artifact/com.gimbal.android.v4/gimbal-sdk
+    description: Gimbal Android SDK v4 for proximity, geofencing, and beacon detection.
+  - name: gimbal-slf4j-impl
+    registry: maven-central
+    ecosystem: android
+    coordinate: com.gimbal.android.v4:gimbal-slf4j-impl
+    latest_version: 4.10.1
+    official: true
+    url: https://central.sonatype.com/artifact/com.gimbal.android.v4/gimbal-slf4j-impl
+    description: SLF4J logging implementation companion for the Gimbal Android SDK.
+  - name: airship-adapter
+    registry: maven-central
+    ecosystem: android
+    coordinate: com.gimbal.android.v4:airship-adapter
+    latest_version: 1.0.0
+    official: true
+    url: https://central.sonatype.com/artifact/com.gimbal.android.v4/airship-adapter
+    description: Adapter integrating the Gimbal Android SDK with Airship.
+notes: >-
+  iOS SDK v2 and Android SDK v4 are the current first-party mobile SDKs. The
+  latest builds are also distributed via the SDK Downloads section of Gimbal
+  Manager (manager.gimbal.com). No first-party REST client library is published.

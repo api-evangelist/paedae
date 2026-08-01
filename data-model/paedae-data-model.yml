@@ -1,0 +1,69 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/paedae-rest-openapi.yml (derived from documented endpoint paths)
+type: DataModel
+provider: Paedae (Gimbal proximity platform)
+entities:
+  - name: Application
+    id: applicationId
+    description: A registered mobile application configured for Gimbal proximity.
+  - name: Place
+    id: placeId
+    description: A location container holding a geofence and/or beacons.
+  - name: Beacon
+    id: factoryId
+    alt_id: beaconId
+    description: A physical Gimbal beacon/transmitter, keyed by factory ID.
+  - name: BeaconConfiguration
+    id: configurationId
+    description: A reusable configuration profile applied to beacons.
+  - name: BeaconTag
+    description: A label attached to a beacon for grouping/targeting.
+  - name: Communication
+    id: id
+    description: A proximity message campaign with notifications and triggers.
+  - name: Notification
+    description: The message payload delivered by a communication.
+  - name: GeofenceTarget
+    description: The set of geofences a communication targets.
+  - name: GeofenceTrigger
+    description: The geofence entry/exit condition that fires a communication.
+  - name: TimeTrigger
+    description: A time-based condition that fires a communication.
+  - name: TimeFilter
+    description: A time-window filter constraining a geofence trigger.
+  - name: Sighting
+    description: An event (Arrived/Departed/Sighted) emitted via the Sightings Callback.
+relationships:
+  - from: Place
+    to: Beacon
+    type: has_many
+    notes: A place may contain one or more beacons and/or a geofence.
+  - from: Beacon
+    to: BeaconConfiguration
+    type: has_one
+    via: configuration
+  - from: Beacon
+    to: BeaconTag
+    type: has_many
+    via: tags
+  - from: Communication
+    to: Notification
+    type: has_one
+    via: notification
+  - from: Communication
+    to: GeofenceTarget
+    type: has_many
+    via: geofence_targets
+  - from: Communication
+    to: GeofenceTrigger
+    type: has_one
+    via: geofence_trigger
+  - from: Communication
+    to: TimeTrigger
+    type: has_one
+    via: time_trigger
+  - from: GeofenceTrigger
+    to: TimeFilter
+    type: has_one
+    via: time_filter

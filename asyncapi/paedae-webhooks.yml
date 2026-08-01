@@ -1,0 +1,32 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.gimbal.com/rest.html
+type: Webhooks
+provider: Paedae (Gimbal proximity platform)
+summary: >-
+  Gimbal delivers beacon/transmitter sighting events via HTTP POST callbacks to
+  a configured action URL (the "Sightings Callback"). No AsyncAPI document is
+  published by the provider.
+webhooks:
+  - name: Sightings Callback
+    transport: http
+    method: POST
+    direction: outbound
+    target: Customer-configured action URL
+    description: >-
+      Gimbal sends an HTTP POST to the configured action URL when a beacon or
+      transmitter is sighted, arrived at, or departed from.
+    trigger_events:
+      - Arrived
+      - Departed
+      - Sighted
+    payload_fields:
+      - receiver identifier
+      - transmitter identifier
+      - triggering event (Arrived/Departed/Sighted)
+      - dwell time
+      - signal strength
+      - location
+      - battery level
+      - timestamp
+docs: https://docs.gimbal.com/rest.html

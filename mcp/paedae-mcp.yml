@@ -1,0 +1,51 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/paedae-rest-openapi.yml (candidate tools derived from operations)
+type: MCPServer
+status: candidate
+provider: Paedae (Gimbal proximity platform)
+notes: >-
+  No official hosted/remote MCP server is published by Gimbal/Paedae. The
+  following is a candidate tool list derived from documented REST operations,
+  for a future MCP wrapper over the Gimbal Manager API.
+server:
+  transport: candidate
+  base_url: https://manager.gimbal.com/api
+  auth: 'Authorization: Token token=<organization_server_api_key>'
+tools:
+  - name: list_applications
+    operationId: listApplications
+    method: GET
+    path: /v2/applications
+  - name: get_application
+    operationId: getApplication
+    method: GET
+    path: /v2/applications/{applicationId}
+  - name: list_places
+    operationId: listPlaces
+    method: GET
+    path: /v2/places
+  - name: create_place
+    operationId: createPlace
+    method: POST
+    path: /v2/places
+  - name: list_beacons
+    operationId: listBeacons
+    method: GET
+    path: /beacons
+  - name: get_beacon
+    operationId: getBeacon
+    method: GET
+    path: /beacons/{factoryId}
+  - name: list_communications
+    operationId: listCommunications
+    method: GET
+    path: /communications
+  - name: create_communication
+    operationId: createCommunication
+    method: POST
+    path: /communications
+  - name: publish_communication
+    operationId: publishCommunication
+    method: POST
+    path: /communications/{id}/publish

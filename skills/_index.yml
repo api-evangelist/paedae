@@ -1,0 +1,28 @@
+generated: '2026-07-20'
+method: generated
+source: >-
+  Generated from openapi/paedae-rest-openapi.yml operations (grounded in real
+  documented operationIds from docs.gimbal.com/rest.html)
+type: AgentSkill
+provider: Paedae (Gimbal proximity platform)
+skills:
+  - name: paedae-manage-places
+    file: paedae-manage-places.md
+    description: Manage Gimbal places (geofences/beacons) and beacons.
+    operations:
+      - listPlaces
+      - createPlace
+      - getPlace
+      - listBeacons
+      - activateBeacon
+      - getBeacon
+  - name: paedae-run-communication
+    file: paedae-run-communication.md
+    description: Create, target, publish, and stop a proximity communication.
+    operations:
+      - createCommunication
+      - createCommunicationNotification
+      - createCommunicationGeofenceTargets
+      - createCommunicationGeofenceTrigger
+      - publishCommunication
+      - stopCommunication

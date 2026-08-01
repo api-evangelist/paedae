@@ -1,0 +1,31 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.gimbal.com/rest.html
+type: Authentication
+provider: Paedae (Gimbal proximity platform)
+summary: >-
+  The Gimbal REST API authenticates most requests with an organization server
+  API key passed in the Authorization header. Some Proximity APIs require an
+  OAuth 2.0 access token instead.
+schemes:
+  - id: OrganizationServerApiKey
+    type: apiKey
+    in: header
+    header: Authorization
+    format: 'Token token=my_organization_server_api_key'
+    description: >-
+      Organization server API key issued in Gimbal Manager. Sent verbatim as
+      `Authorization: Token token=<key>`.
+    applies_to: Manager REST API (applications, places, beacons, communications)
+  - id: ProximityOAuth2
+    type: oauth2
+    flow: authorizationCode
+    authorization_url: https://manager.gimbal.com/oauth/authorize
+    token_url: https://manager.gimbal.com/oauth/token
+    description: >-
+      Some Proximity APIs require an OAuth 2.0 access token rather than the
+      organization server API key. OAuth is also used by the Gimbal Manager
+      portal login (manager.gimbal.com/auth/railsoauth).
+    applies_to: Select Proximity APIs
+content_type: application/json
+docs: https://docs.gimbal.com/rest.html

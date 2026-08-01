@@ -1,0 +1,13 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/paedae-rest-openapi.yml
+schemes:
+- name: ProximityOAuth2
+  source: openapi/paedae-rest-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://manager.gimbal.com/oauth/authorize
+    tokenUrl: https://manager.gimbal.com/oauth/token
+  description: Some Proximity APIs require an OAuth 2.0 access token instead of the organization
+    server API key.
+scopes: []

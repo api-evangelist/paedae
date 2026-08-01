@@ -1,0 +1,37 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.gimbal.com/rest.html
+type: ErrorCatalog
+provider: Paedae (Gimbal proximity platform)
+format: custom
+envelope: >-
+  Errors return a standard HTTP status code plus a JSON body carrying a
+  Gimbal-specific numeric error code and message.
+http_statuses:
+  - status: 200
+    meaning: Success
+  - status: 401
+    meaning: Unauthorized
+  - status: 404
+    meaning: Resource Not Found
+  - status: 422
+    meaning: Unprocessable Entity
+  - status: 500
+    meaning: Unexpected Error
+error_codes:
+  - code: 6000
+    title: Not Found
+    remediation: The referenced resource does not exist; verify the identifier.
+  - code: 6001
+    title: Invalid
+    remediation: The request payload failed validation; correct the invalid fields.
+  - code: 6002
+    title: Beacon belongs to another user
+    remediation: The beacon is already registered to a different user account.
+  - code: 6003
+    title: Beacon belongs to another organization
+    remediation: The beacon is already registered to a different organization.
+  - code: 9000
+    title: Unknown Error
+    remediation: An unexpected error occurred; retry or contact Gimbal support.
+docs: https://docs.gimbal.com/rest.html

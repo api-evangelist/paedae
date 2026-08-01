@@ -1,0 +1,369 @@
+# generated: 2026-07-20
+# method: generated
+# source: https://docs.gimbal.com/rest.html (Gimbal REST API, documented endpoints)
+# note: Faithful OpenAPI generated from the publicly documented Gimbal REST API
+#       reference. Paedae operates the Gimbal proximity/location platform
+#       (paedae.com -> gimbal.com, now under Infillion). No first-party OpenAPI
+#       is published by the provider; this captures the documented surface.
+openapi: 3.1.0
+info:
+  title: Gimbal REST API
+  version: v2
+  description: >-
+    The Gimbal REST API manages proximity and location assets for the Gimbal
+    platform operated by Paedae/Infillion: applications, places (geofences and
+    beacons), beacons and their configurations, and communications
+    (notifications and triggers). All requests and responses use JSON.
+  contact:
+    name: Gimbal Support
+    url: https://support.gimbal.com/hc/en-us/
+  license:
+    name: Proprietary
+servers:
+  - url: https://manager.gimbal.com/api
+    description: Gimbal Manager API
+security:
+  - OrganizationServerApiKey: []
+tags:
+  - name: Applications
+  - name: Places
+  - name: Beacons
+  - name: Beacon Configurations
+  - name: Communications
+paths:
+  /v2/applications:
+    get:
+      tags: [Applications]
+      operationId: listApplications
+      summary: Retrieve all applications
+      responses:
+        '200': { description: Success }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+    post:
+      tags: [Applications]
+      operationId: createApplication
+      summary: Create new application
+      responses:
+        '200': { description: Success }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '422': { $ref: '#/components/responses/Unprocessable' }
+  /v2/applications/{applicationId}:
+    parameters:
+      - { name: applicationId, in: path, required: true, schema: { type: string } }
+    get:
+      tags: [Applications]
+      operationId: getApplication
+      summary: Get single application with configuration
+      responses:
+        '200': { description: Success }
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Applications]
+      operationId: updateApplication
+      summary: Update application
+      responses:
+        '200': { description: Success }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/Unprocessable' }
+    delete:
+      tags: [Applications]
+      operationId: deleteApplication
+      summary: Delete application (contact support required)
+      responses:
+        '200': { description: Success }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /v2/places:
+    get:
+      tags: [Places]
+      operationId: listPlaces
+      summary: Retrieve all places (supports filtering and pagination)
+      parameters:
+        - { name: limit, in: query, schema: { type: integer } }
+        - { name: offset, in: query, schema: { type: integer } }
+      responses:
+        '200': { description: Success }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+    post:
+      tags: [Places]
+      operationId: createPlace
+      summary: Create place with geofence and/or beacons
+      responses:
+        '200': { description: Success }
+        '422': { $ref: '#/components/responses/Unprocessable' }
+  /v2/places/{placeId}:
+    parameters:
+      - { name: placeId, in: path, required: true, schema: { type: string } }
+    get:
+      tags: [Places]
+      operationId: getPlace
+      summary: Get place detail
+      responses:
+        '200': { description: Success }
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Places]
+      operationId: updatePlace
+      summary: Update place
+      responses:
+        '200': { description: Success }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [Places]
+      operationId: deletePlace
+      summary: Delete place
+      responses:
+        '200': { description: Success }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /beacons:
+    get:
+      tags: [Beacons]
+      operationId: listBeacons
+      summary: Get all beacons (supports filtering and pagination)
+      responses:
+        '200': { description: Success }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+    post:
+      tags: [Beacons]
+      operationId: activateBeacon
+      summary: Activate beacon
+      responses:
+        '200': { description: Success }
+        '422': { $ref: '#/components/responses/Unprocessable' }
+  /beacons/{factoryId}:
+    parameters:
+      - { name: factoryId, in: path, required: true, schema: { type: string } }
+    get:
+      tags: [Beacons]
+      operationId: getBeacon
+      summary: Get beacon by factory ID
+      responses:
+        '200': { description: Success }
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Beacons]
+      operationId: updateBeacon
+      summary: Update beacon metadata
+      responses:
+        '200': { description: Success }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [Beacons]
+      operationId: deactivateBeacon
+      summary: Deactivate beacon
+      responses:
+        '200': { description: Success }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /beacons/{factoryId}/configuration:
+    parameters:
+      - { name: factoryId, in: path, required: true, schema: { type: string } }
+    get:
+      tags: [Beacons]
+      operationId: getBeaconConfiguration
+      summary: Get beacon configuration
+      responses:
+        '200': { description: Success }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /beacons/{factoryId}/tags:
+    parameters:
+      - { name: factoryId, in: path, required: true, schema: { type: string } }
+    get:
+      tags: [Beacons]
+      operationId: getBeaconTags
+      summary: Get beacon tags
+      responses:
+        '200': { description: Success }
+    post:
+      tags: [Beacons]
+      operationId: createBeaconTags
+      summary: Create beacon tags
+      responses:
+        '200': { description: Success }
+    delete:
+      tags: [Beacons]
+      operationId: deleteBeaconTags
+      summary: Delete beacon tags
+      responses:
+        '200': { description: Success }
+  /beacon_configurations:
+    get:
+      tags: [Beacon Configurations]
+      operationId: listBeaconConfigurations
+      summary: Get all configurations
+      responses:
+        '200': { description: Success }
+    post:
+      tags: [Beacon Configurations]
+      operationId: createBeaconConfiguration
+      summary: Create configuration
+      responses:
+        '200': { description: Success }
+        '422': { $ref: '#/components/responses/Unprocessable' }
+  /beacon_configurations/{configurationId}:
+    parameters:
+      - { name: configurationId, in: path, required: true, schema: { type: string } }
+    get:
+      tags: [Beacon Configurations]
+      operationId: getBeaconConfigurationById
+      summary: Get specific configuration
+      responses:
+        '200': { description: Success }
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Beacon Configurations]
+      operationId: updateBeaconConfiguration
+      summary: Update configuration
+      responses:
+        '200': { description: Success }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [Beacon Configurations]
+      operationId: deleteBeaconConfiguration
+      summary: Delete configuration
+      responses:
+        '200': { description: Success }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /communications:
+    get:
+      tags: [Communications]
+      operationId: listCommunications
+      summary: Get all communications
+      responses:
+        '200': { description: Success }
+    post:
+      tags: [Communications]
+      operationId: createCommunication
+      summary: Create communication
+      responses:
+        '200': { description: Success }
+        '422': { $ref: '#/components/responses/Unprocessable' }
+  /communications/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    get:
+      tags: [Communications]
+      operationId: getCommunication
+      summary: Get single communication
+      responses:
+        '200': { description: Success }
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Communications]
+      operationId: updateCommunication
+      summary: Update communication
+      responses:
+        '200': { description: Success }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [Communications]
+      operationId: deleteCommunication
+      summary: Delete communication
+      responses:
+        '200': { description: Success }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /communications/{id}/publish:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    post:
+      tags: [Communications]
+      operationId: publishCommunication
+      summary: Publish communication
+      responses:
+        '200': { description: Success }
+  /communications/{id}/stop:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    post:
+      tags: [Communications]
+      operationId: stopCommunication
+      summary: Stop communication
+      responses:
+        '200': { description: Success }
+  /communications/{id}/notification:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    get:
+      tags: [Communications]
+      operationId: getCommunicationNotification
+      summary: Get notification
+      responses:
+        '200': { description: Success }
+    post:
+      tags: [Communications]
+      operationId: createCommunicationNotification
+      summary: Create notification
+      responses:
+        '200': { description: Success }
+    delete:
+      tags: [Communications]
+      operationId: deleteCommunicationNotification
+      summary: Delete notification
+      responses:
+        '200': { description: Success }
+  /communications/{id}/geofence_targets:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    get:
+      tags: [Communications]
+      operationId: getCommunicationGeofenceTargets
+      summary: Get all geofence targets
+      responses:
+        '200': { description: Success }
+    post:
+      tags: [Communications]
+      operationId: createCommunicationGeofenceTargets
+      summary: Create geofence targets
+      responses:
+        '200': { description: Success }
+    delete:
+      tags: [Communications]
+      operationId: deleteCommunicationGeofenceTargets
+      summary: Delete all geofence targets
+      responses:
+        '200': { description: Success }
+  /communications/{id}/geofence_trigger:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    get:
+      tags: [Communications]
+      operationId: getCommunicationGeofenceTrigger
+      summary: Get geofence trigger
+      responses:
+        '200': { description: Success }
+    post:
+      tags: [Communications]
+      operationId: createCommunicationGeofenceTrigger
+      summary: Create geofence trigger
+      responses:
+        '200': { description: Success }
+    delete:
+      tags: [Communications]
+      operationId: deleteCommunicationGeofenceTrigger
+      summary: Delete geofence trigger
+      responses:
+        '200': { description: Success }
+components:
+  securitySchemes:
+    OrganizationServerApiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: >-
+        Organization server API key passed as
+        `Authorization: Token token=my_organization_server_api_key`.
+    ProximityOAuth2:
+      type: oauth2
+      description: >-
+        Some Proximity APIs require an OAuth 2.0 access token instead of the
+        organization server API key.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://manager.gimbal.com/oauth/authorize
+          tokenUrl: https://manager.gimbal.com/oauth/token
+          scopes: {}
+  responses:
+    Unauthorized:
+      description: Unauthorized (401)
+    NotFound:
+      description: Resource Not Found (404)
+    Unprocessable:
+      description: Unprocessable Entity (422)
