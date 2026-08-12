@@ -158,6 +158,8 @@ apis:
   - type: Conformance
     url: conformance/paedae-conformance.yml
 common:
+- type: MCPServer
+  url: mcp/paedae-mcp.yml
 - type: DomainSecurity
   url: security/paedae-domain-security.yml
 - type: OAuthScopes
