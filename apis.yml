@@ -30,7 +30,7 @@ accessModel:
   method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-20'
+modified: '2026-08-13'
 tags:
 - Company
 - Proximity
@@ -49,7 +49,7 @@ maintainers:
 apis:
 - aid: paedae:paedae-applications-api
   name: Paedae Applications API
-  description: The Applications API from Paedae — 2 operation(s) for applications.
+  description: The Applications API from Paedae — 5 operation(s) for applications.
   humanURL: https://docs.gimbal.com/rest.html
   baseURL: https://manager.gimbal.com/api
   tags:
@@ -57,6 +57,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/paedae-applications-api-openapi.yml
+  - type: Overlay
+    url: overlays/paedae-applications-api-overlay.yaml
   - type: Authentication
     url: authentication/paedae-authentication.yml
   - type: ErrorCatalog
@@ -71,7 +73,7 @@ apis:
     url: conformance/paedae-conformance.yml
 - aid: paedae:paedae-beacon-configurations-api
   name: Paedae Beacon Configurations API
-  description: The Beacon Configurations API from Paedae — 2 operation(s) for beacon configurations.
+  description: The Beacon Configurations API from Paedae — 5 operation(s) for beacon configurations.
   humanURL: https://docs.gimbal.com/rest.html
   baseURL: https://manager.gimbal.com/api
   tags:
@@ -79,6 +81,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/paedae-beacon-configurations-api-openapi.yml
+  - type: Overlay
+    url: overlays/paedae-beacon-configurations-api-overlay.yaml
   - type: Authentication
     url: authentication/paedae-authentication.yml
   - type: ErrorCatalog
@@ -93,7 +97,7 @@ apis:
     url: conformance/paedae-conformance.yml
 - aid: paedae:paedae-beacons-api
   name: Paedae Beacons API
-  description: The Beacons API from Paedae — 4 operation(s) for beacons.
+  description: The Beacons API from Paedae — 9 operation(s) for beacons.
   humanURL: https://docs.gimbal.com/rest.html
   baseURL: https://manager.gimbal.com/api
   tags:
@@ -101,6 +105,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/paedae-beacons-api-openapi.yml
+  - type: Overlay
+    url: overlays/paedae-beacons-api-overlay.yaml
   - type: Authentication
     url: authentication/paedae-authentication.yml
   - type: ErrorCatalog
@@ -115,7 +121,7 @@ apis:
     url: conformance/paedae-conformance.yml
 - aid: paedae:paedae-communications-api
   name: Paedae Communications API
-  description: The Communications API from Paedae — 7 operation(s) for communications.
+  description: The Communications API from Paedae — 16 operation(s) for communications.
   humanURL: https://docs.gimbal.com/rest.html
   baseURL: https://manager.gimbal.com/api
   tags:
@@ -123,6 +129,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/paedae-communications-api-openapi.yml
+  - type: Overlay
+    url: overlays/paedae-communications-api-overlay.yaml
   - type: Authentication
     url: authentication/paedae-authentication.yml
   - type: ErrorCatalog
@@ -137,7 +145,7 @@ apis:
     url: conformance/paedae-conformance.yml
 - aid: paedae:paedae-places-api
   name: Paedae Places API
-  description: The Places API from Paedae — 2 operation(s) for places.
+  description: The Places API from Paedae — 5 operation(s) for places.
   humanURL: https://docs.gimbal.com/rest.html
   baseURL: https://manager.gimbal.com/api
   tags:
@@ -145,6 +153,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/paedae-places-api-openapi.yml
+  - type: Overlay
+    url: overlays/paedae-places-api-overlay.yaml
   - type: Authentication
     url: authentication/paedae-authentication.yml
   - type: ErrorCatalog
@@ -190,8 +200,26 @@ common:
   url: skills/_index.yml
 - type: WellKnown
   url: well-known/paedae-well-known.yml
+- type: ToolCrosswalk
+  url: mcp/paedae-tool-crosswalk.yml
+- type: ChangeLog
+  url: changelog/paedae-changelog.yml
+- type: Plans
+  url: plans/paedae-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/paedae-rate-limits.yml
+- type: LLMsTxt
+  url: llms/paedae-llms.txt
+- type: GitHubOrganization
+  url: https://github.com/gimbalinc
+- type: Blog
+  url: https://infillion.com/blog/
+- type: PrivacyPolicy
+  url: https://infillion.com/privacy-policy/
+- type: TermsOfService
+  url: https://infillion.com/terms-of-use/
 x-enrichment:
-  date: '2026-07-20'
+  date: '2026-08-13'
   status: enriched
-  artifacts_added: 16
+  artifacts_added: 13
   pass: local-v1
