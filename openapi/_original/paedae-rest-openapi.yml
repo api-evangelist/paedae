@@ -78,8 +78,9 @@ paths:
       operationId: listPlaces
       summary: Retrieve all places (supports filtering and pagination)
       parameters:
-        - { name: limit, in: query, schema: { type: integer } }
-        - { name: offset, in: query, schema: { type: integer } }
+        - { name: name, in: query, description: Filter by place name (partial match)., schema: { type: string } }
+        - { name: page, in: query, description: 'Page of results to return. If per_page is given but page is not, page defaults to 1.', schema: { type: integer } }
+        - { name: per_page, in: query, description: 'Number of items per page. If page is given but per_page is not, per_page defaults to 50. Pagination is only performed when page or per_page is sent.', schema: { type: integer, default: 50 } }
       responses:
         '200': { description: Success }
         '401': { $ref: '#/components/responses/Unauthorized' }
@@ -119,6 +120,10 @@ paths:
       tags: [Beacons]
       operationId: listBeacons
       summary: Get all beacons (supports filtering and pagination)
+      parameters:
+        - { name: name, in: query, description: Filter by beacon name (partial match)., schema: { type: string } }
+        - { name: page, in: query, description: 'Page of results to return. If per_page is given but page is not, page defaults to 1.', schema: { type: integer } }
+        - { name: per_page, in: query, description: 'Number of items per page. If page is given but per_page is not, per_page defaults to 50. Pagination is only performed when page or per_page is sent.', schema: { type: integer, default: 50 } }
       responses:
         '200': { description: Success }
         '401': { $ref: '#/components/responses/Unauthorized' }

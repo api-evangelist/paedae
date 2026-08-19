@@ -1,0 +1,93 @@
+# Paedae / Gimbal
+
+> generated: 2026-08-13
+> method: generated
+> source: apis.yml + repo artifacts (no llms.txt is published by the provider —
+> docs.gimbal.com/llms.txt 403, manager.gimbal.com/llms.txt 404,
+> infillion.com/llms.txt 404, www.gimbal.com/llms.txt 404, probed 2026-08-13)
+
+Paedae is the company behind the Gimbal proximity and location platform, a 500 Global
+portfolio company. paedae.com now redirects to gimbal.com, which redirects to
+infillion.com: Gimbal is operated by Infillion. The developer surface remains live at
+docs.gimbal.com and manager.gimbal.com.
+
+Gimbal provides Bluetooth Low Energy beacons, geofencing, and a proximity SDK for iOS,
+Android, React Native and Flutter, plus the Gimbal Manager REST API for managing
+applications, places, beacons, beacon configurations and location-triggered
+communications. Beacon sighting events (Arrived / Sighted / Departed) are delivered as
+outbound HTTP POST callbacks.
+
+## API
+
+- [Gimbal Manager REST API reference](https://docs.gimbal.com/rest.html): the complete
+  documented REST surface. Base URL `https://manager.gimbal.com/api`.
+- Authentication: `Authorization: Token token=<organization_server_api_key>`, where the
+  key is issued under Organizations in Gimbal Manager. Select Proximity (transmitter)
+  APIs instead require an OAuth access token passed as an `access_token` query parameter.
+- Content type: `application/json` on request and response.
+- Response statuses: 200 Success, 401 Unauthorized, 404 Resource Not Found,
+  422 Unprocessable Entity, 500 Unexpected Error.
+- Gimbal error codes: 6000 Not Found, 6001 Invalid, 6002 Beacon belongs to another user,
+  6003 Beacon belongs to another organization, 9000 Unknown Error.
+- Pagination on collections: `page` and `per_page` query parameters (per_page defaults to
+  50 when only `page` is sent). Responses carry `Total-Places` / `Total-Beacons`,
+  `Total-Pages` and `Current-Page` headers.
+- No rate limits are published. No idempotency mechanism is documented. No deprecation
+  or sunset policy is published.
+
+## Resources
+
+- Applications — `GET/POST /v2/applications`, `GET/PUT/DELETE /v2/applications/{id}`
+- Places — `GET/POST /v2/places`, `GET/PUT/DELETE /v2/places/{id}`
+- Beacons (also called transmitters) — `GET /beacons`, `GET/PUT /beacons/{factoryId}`,
+  activate/deactivate, tags, and per-beacon configuration
+- Beacon configurations — full CRUD
+- Communications — create, update, publish, stop, plus notification, geofence targets,
+  geofence trigger, time trigger, time filter, custom profile attributes and
+  communication attributes sub-resources
+
+## Events
+
+- [Sightings Callback](https://docs.gimbal.com/rest.html): Gimbal POSTs
+  `application/json` to a customer-configured action URL on Arrived, Sighted and
+  Departed events, carrying receiver and transmitter identifiers, dwell time, averaged
+  RSSI and timestamps. The endpoint is verification-tested with an empty `{}` POST when
+  the serve rule is created. No AsyncAPI document is published.
+
+## SDKs
+
+- iOS: `Gimbal` on CocoaPods (2.97.1) and the
+  [ios-gimbal-swift-package](https://github.com/gimbalinc/ios-gimbal-swift-package)
+  Swift Package (2.97.2, 2026-05-21)
+- Android: `com.gimbal.android.v4:gimbal-sdk` on Maven Central (4.10.1, 2024-07-29)
+- React Native: [`rtn-gimbal-sdk`](https://www.npmjs.com/package/rtn-gimbal-sdk)
+  (0.4.0, 2026-06-29)
+- Flutter: [`airship_adapter_flutter`](https://pub.dev/packages/airship_adapter_flutter)
+  (1.0.0, 2026-01-12)
+- Airship adapters for iOS, Android, Cordova and React Native
+- Source: [github.com/gimbalinc](https://github.com/gimbalinc)
+- There is no client library for the REST API in any language.
+
+## Agents
+
+- Infillion, Gimbal's parent, runs a remote MCP server — the
+  [Infillion Agent Connector](https://infillion.com/infillion-agent-connector/) — at
+  `https://mcp.infillion.com/mcp`, announced 2025-12-16. It is OAuth-protected: an
+  anonymous `tools/list` returns 401 with
+  `WWW-Authenticate: Bearer realm="Infillion Gateway"`. Its OAuth metadata is public at
+  `/.well-known/oauth-protected-resource` and `/.well-known/oauth-authorization-server`
+  and supports dynamic client registration with PKCE S256.
+- The Agent Connector is an agent-native MEDIA EXECUTION layer. It is not an MCP wrapper
+  over the Gimbal Manager REST API, and no MCP server exposes the proximity API.
+- No A2A agent card is published on any host.
+
+## Company
+
+- [Infillion Gimbal product page](https://infillion.com/products/infillion-gimbal/)
+- [Gimbal Manager (sign in / sign up)](https://manager.gimbal.com)
+- [Gimbal Knowledge Base](https://support.gimbal.com/hc/en-us/)
+- [Status page](http://status.gimbal.com)
+- [Privacy policy](https://infillion.com/privacy-policy/) ·
+  [Terms of use](https://infillion.com/terms-of-use/) ·
+  [Beacon legal](https://infillion.com/beacon-legal/)
+- No pricing is published; no plans, quotas or overages are stated anywhere.

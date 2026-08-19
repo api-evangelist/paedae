@@ -1,0 +1,194 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gimbal REST Applications Beacons API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Beacons",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all beacons (supports filtering and pagination)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://manager.gimbal.com/api/beacons",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name (partial match)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page of results to return. If per_page is given but page is not, page defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page. If page is given but per_page is not, per_page defaults to 50. Pagination is only performed when page or per_page is sent."
+              }
+            ]
+          },
+          "docs": "Get all beacons (supports filtering and pagination)"
+        },
+        {
+          "info": {
+            "name": "Activate beacon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://manager.gimbal.com/api/beacons"
+          },
+          "docs": "Activate beacon"
+        },
+        {
+          "info": {
+            "name": "Get beacon by factory ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://manager.gimbal.com/api/beacons/:factoryId",
+            "params": [
+              {
+                "name": "factoryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get beacon by factory ID"
+        },
+        {
+          "info": {
+            "name": "Update beacon metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://manager.gimbal.com/api/beacons/:factoryId",
+            "params": [
+              {
+                "name": "factoryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update beacon metadata"
+        },
+        {
+          "info": {
+            "name": "Deactivate beacon",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://manager.gimbal.com/api/beacons/:factoryId",
+            "params": [
+              {
+                "name": "factoryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deactivate beacon"
+        },
+        {
+          "info": {
+            "name": "Get beacon configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://manager.gimbal.com/api/beacons/:factoryId/configuration",
+            "params": [
+              {
+                "name": "factoryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get beacon configuration"
+        },
+        {
+          "info": {
+            "name": "Get beacon tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://manager.gimbal.com/api/beacons/:factoryId/tags",
+            "params": [
+              {
+                "name": "factoryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get beacon tags"
+        },
+        {
+          "info": {
+            "name": "Create beacon tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://manager.gimbal.com/api/beacons/:factoryId/tags",
+            "params": [
+              {
+                "name": "factoryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create beacon tags"
+        },
+        {
+          "info": {
+            "name": "Delete beacon tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://manager.gimbal.com/api/beacons/:factoryId/tags",
+            "params": [
+              {
+                "name": "factoryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete beacon tags"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

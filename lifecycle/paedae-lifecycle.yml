@@ -1,28 +1,73 @@
-generated: '2026-07-20'
+generated: '2026-08-13'
 method: searched
-source: https://docs.gimbal.com/rest.html ; https://status.gimbal.com
+source: >-
+  https://docs.gimbal.com/rest.html; http://status.gimbal.com (200, Pingdom
+  public report); github.com/gimbalinc release feeds. Probed 2026-08-13.
 type: Lifecycle
-provider: Paedae (Gimbal proximity platform)
+provider: Paedae (Gimbal proximity platform, operated by Infillion)
 versioning:
   scheme: path-prefix
   current: v2
   notes: >-
-    Manager REST resources are namespaced under /v2 (applications, places);
-    beacon and communication resources are unversioned. Mobile SDKs version
-    independently (iOS SDK v2, Android SDK v4).
+    Three conventions coexist on one base URL: /v2 (applications, places),
+    unversioned (/beacons, /communications) and /v1 (transmitters). Mobile SDKs
+    version independently — iOS SDK v2 (2.97.x), Android SDK v4 (4.10.x),
+    React Native 0.4.x.
 status_page:
   url: http://status.gimbal.com
   name: Gimbal System Status
+  provider: Pingdom public report
+  probe:
+    status: 200
+    scheme_note: >-
+      Served over HTTP only in the docs link; HTTPS on status.gimbal.com does
+      not resolve to the report.
+    checked: '2026-08-13'
 support:
   knowledge_base: https://support.gimbal.com/hc/en-us/
+  knowledge_base_probe:
+    status: 403
+    note: Zendesk returns 403 to non-browser clients; the page is reachable in a browser.
   portal: https://manager.gimbal.com
+  github_org: https://github.com/gimbalinc
 deprecation:
   policy_published: false
+  sunset_headers: false
   notes: >-
-    No formal deprecation/sunset policy (RFC 8594 Sunset/Deprecation headers)
-    is documented in the public reference.
+    No formal deprecation or sunset policy (RFC 8594 Sunset/Deprecation
+    headers) is documented. The reference does mark two Sightings Callback
+    payload attributes as "Deprecated" — Receiver Owner Identifier and
+    Transmitter Owner Identifier — but publishes no removal date, no
+    replacement guidance and no notice period.
+  deprecated_fields:
+    - surface: Sightings Callback payload
+      field: Receiver Owner Identifier
+      replacement: Receiver Owner Organization
+    - surface: Sightings Callback payload
+      field: Transmitter Owner Identifier
+      replacement: Transmitter Owner Organization
+changelog:
+  api_changelog_published: false
+  sdk_release_feeds: true
+  cross_ref: changelog/paedae-changelog.yml
+release_cadence:
+  ios: Active — 2.97.2 shipped 2026-05-21.
+  react_native: Active — 0.4.0 shipped 2026-06-29, still pre-1.0.
+  android: >-
+    Stalled — 4.10.1 shipped 2024-07-29, two years before this pass, and the
+    Android developer guide still documents 4.2.0.
+  rest_api: >-
+    Unknown — no changelog, no dated reference, no version history published.
+sla:
+  published: false
 corporate_history:
   - Paedae (500 Global portfolio) acquired the Gimbal proximity platform.
-  - paedae.com now redirects to gimbal.com.
-  - Gimbal is operated under Infillion (gimbal.com redirects to infillion.com);
-    the developer platform remains at docs.gimbal.com and manager.gimbal.com.
+  - paedae.com now 301s to infillion.com.
+  - >-
+    Gimbal is operated under Infillion (gimbal.com also 301s to infillion.com);
+    the developer platform remains live at docs.gimbal.com and
+    manager.gimbal.com.
+  - >-
+    2025-12-16 — Infillion launched the Agent Connector, an MCP-based agent
+    execution layer spanning its unified platform (MediaMath, TrueX, Gimbal,
+    Drawbridge).

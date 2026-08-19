@@ -1,0 +1,43 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://infillion.com/products/infillion-gimbal/ (200),
+  https://infillion.com/ page sitemap (200, enumerated — no pricing page
+  exists), https://infillion.com/pricing/ (404),
+  https://gimbal.com/beacons/ (404 — redirects to infillion.com/beacons/,
+  which is also 404), https://docs.gimbal.com/rest.html (200, no pricing).
+  Probed 2026-08-13.
+type: Plans
+provider: Paedae (Gimbal proximity platform, operated by Infillion)
+plan_count: 0
+pricing_published: false
+model: contact-sales
+summary: >-
+  Neither Gimbal nor its parent Infillion publishes any pricing, plan tier,
+  quota or overage figure. The full page sitemap at infillion.com was
+  enumerated and contains no /pricing page of any kind; the Gimbal product
+  page ends in a "contact us" call to action, and the developer surface
+  (docs.gimbal.com) never mentions cost, quota or metering. Beacon hardware —
+  historically sold from a gimbal.com storefront — no longer has a live
+  purchase page: gimbal.com/beacons/ now 404s through the redirect to
+  infillion.com.
+onboarding:
+  self_serve_signup: true
+  signup_url: https://manager.gimbal.com
+  note: >-
+    A developer can create a Gimbal Manager account and obtain an organization
+    server API key without talking to sales, but no published plan describes
+    what that account includes or what it costs.
+plans: []
+evidence:
+  - url: https://infillion.com/pricing/
+    status: 404
+  - url: https://infillion.com/products/infillion-gimbal/
+    status: 200
+    note: Product page; no price, tier, or quota stated.
+  - url: https://infillion.com/page-sitemap.xml
+    status: 200
+    note: 48 pages enumerated; no pricing page present.
+  - url: https://gimbal.com/beacons/
+    status: 404
+    note: Redirects to infillion.com/beacons/, which returns 404.

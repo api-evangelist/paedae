@@ -1,13 +1,55 @@
-generated: '2026-07-20'
-method: derived
-source: openapi/paedae-rest-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.gimbal.com/rest.html (transmitter/Proximity OAuth) and live
+  probe of https://mcp.infillion.com/.well-known/oauth-authorization-server
+  (HTTP 200, 2026-08-13). Baseline derived from
+  openapi/paedae-rest-openapi.yml.
+type: OAuthScopes
+provider: Paedae (Gimbal proximity platform, operated by Infillion)
+summary: >-
+  Two OAuth 2.0 authorization servers exist across this company's estate and
+  NEITHER publishes a scope vocabulary. Gimbal's transmitter APIs take an
+  opaque `access_token` query parameter with no documented scopes; the parent's
+  MCP gateway publishes RFC 8414 metadata that omits `scopes_supported`
+  entirely. There is nothing to enumerate — this is a published absence, not an
+  unchecked field.
 schemes:
-- name: ProximityOAuth2
-  source: openapi/paedae-rest-openapi.yml
-  flows:
-  - flow: authorizationCode
-    authorizationUrl: https://manager.gimbal.com/oauth/authorize
-    tokenUrl: https://manager.gimbal.com/oauth/token
-  description: Some Proximity APIs require an OAuth 2.0 access token instead of the organization
-    server API key.
+  - name: ProximityOAuth2
+    source: openapi/paedae-rest-openapi.yml + https://docs.gimbal.com/rest.html
+    flows:
+      - flow: authorizationCode
+        authorizationUrl: https://manager.gimbal.com/oauth/authorize
+        tokenUrl: https://manager.gimbal.com/oauth/token
+    description: >-
+      Transmitter (beacon) Proximity APIs require a user OAuth access token
+      passed as a query parameter — `POST /api/v1/transmitters?access_token={token}`.
+      Access is implicitly limited to transmitters owned by the account behind
+      the token; no scope names are documented.
+    scopes: []
+    scopes_documented: false
+  - name: InfillionAgentConnector
+    source: https://mcp.infillion.com/.well-known/oauth-authorization-server
+    issuer: https://mcp.infillion.com
+    flows:
+      - flow: authorizationCode
+        authorizationUrl: https://mcp.infillion.com/oauth/authorize
+        tokenUrl: https://mcp.infillion.com/oauth/token
+        pkce: S256
+    registration_endpoint: https://mcp.infillion.com/register
+    grant_types_supported:
+      - authorization_code
+      - refresh_token
+    token_endpoint_auth_methods_supported:
+      - none
+    description: >-
+      Authorization server fronting the parent's remote MCP endpoint
+      (https://mcp.infillion.com/mcp). Parent-brand surface: paedae.com and
+      gimbal.com both redirect to infillion.com.
+    scopes: []
+    scopes_documented: false
+    note: >-
+      The metadata document contains no `scopes_supported` member, so a client
+      cannot discover what permissions it may request before registering.
 scopes: []
+docs: https://docs.gimbal.com/rest.html

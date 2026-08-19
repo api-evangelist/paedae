@@ -1,0 +1,135 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/paedae-*-openapi.yml (real operationIds) bound to the candidate tool
+  list in mcp/paedae-mcp.yml. The live Infillion Agent Connector MCP endpoint
+  (https://mcp.infillion.com/mcp) is OAuth-gated (HTTP 401 on tools/list), so
+  its real tools could not be enumerated and are NOT mapped here.
+type: ToolCrosswalk
+provider: Paedae (Gimbal proximity platform, operated by Infillion)
+summary: >-
+  Binds each candidate MCP tool to the Gimbal Manager REST operation that backs
+  it — the operation whose parameters and requestBody would become the tool's
+  inputSchema. Every REST row below is a real operationId present in this
+  repo's OpenAPI files. No tool is invented and no gated tool is guessed.
+surfaces:
+  openapi:
+    files:
+      - openapi/paedae-applications-api-openapi.yml
+      - openapi/paedae-beacon-configurations-api-openapi.yml
+      - openapi/paedae-beacons-api-openapi.yml
+      - openapi/paedae-communications-api-openapi.yml
+      - openapi/paedae-places-api-openapi.yml
+    gated: false
+    base_url: https://manager.gimbal.com/api
+  graphql: null
+  mcp:
+    url: https://mcp.infillion.com/mcp
+    gated: true
+    gate: 'OAuth 2.0 — HTTP 401, WWW-Authenticate: Bearer realm="Infillion Gateway"'
+    mapped: false
+    note: >-
+      Parent-brand agent-native media execution layer (Infillion Agent
+      Connector), not a wrapper over the Gimbal Manager REST API. Its tool
+      list is unreadable anonymously, so it contributes no rows.
+crosswalk:
+  - tool: list_applications
+    category: applications
+    rest:
+      - listApplications
+    binding: one-to-one
+    confidence: high
+  - tool: get_application
+    category: applications
+    rest:
+      - getApplication
+    binding: one-to-one
+    confidence: high
+  - tool: list_places
+    category: places
+    rest:
+      - listPlaces
+    binding: one-to-one
+    confidence: high
+    note: >-
+      inputSchema inherits the documented filter/pagination query parameters
+      (name, attribute_key{n}, attribute_value{n}, page, per_page).
+  - tool: create_place
+    category: places
+    rest:
+      - createPlace
+    binding: one-to-one
+    confidence: high
+  - tool: list_beacons
+    category: beacons
+    rest:
+      - listBeacons
+    binding: one-to-one
+    confidence: high
+  - tool: get_beacon
+    category: beacons
+    rest:
+      - getBeacon
+    binding: one-to-one
+    confidence: high
+  - tool: list_communications
+    category: communications
+    rest:
+      - listCommunications
+    binding: one-to-one
+    confidence: high
+  - tool: create_communication
+    category: communications
+    rest:
+      - createCommunication
+    binding: one-to-one
+    confidence: high
+  - tool: publish_communication
+    category: communications
+    rest:
+      - publishCommunication
+    binding: one-to-one
+    confidence: high
+mcp_only: []
+rest_only:
+  - operationId: createApplication
+  - operationId: updateApplication
+  - operationId: deleteApplication
+  - operationId: getPlace
+  - operationId: updatePlace
+  - operationId: deletePlace
+  - operationId: activateBeacon
+  - operationId: deactivateBeacon
+  - operationId: updateBeacon
+  - operationId: getBeaconConfiguration
+  - operationId: getBeaconTags
+  - operationId: createBeaconTags
+  - operationId: deleteBeaconTags
+  - operationId: listBeaconConfigurations
+  - operationId: getBeaconConfigurationById
+  - operationId: createBeaconConfiguration
+  - operationId: updateBeaconConfiguration
+  - operationId: deleteBeaconConfiguration
+  - operationId: getCommunication
+  - operationId: updateCommunication
+  - operationId: deleteCommunication
+  - operationId: stopCommunication
+  - operationId: getCommunicationNotification
+  - operationId: createCommunicationNotification
+  - operationId: deleteCommunicationNotification
+  - operationId: getCommunicationGeofenceTargets
+  - operationId: createCommunicationGeofenceTargets
+  - operationId: deleteCommunicationGeofenceTargets
+  - operationId: getCommunicationGeofenceTrigger
+  - operationId: createCommunicationGeofenceTrigger
+  - operationId: deleteCommunicationGeofenceTrigger
+coverage:
+  rest_operations_total: 40
+  rest_operations_bound: 9
+  tools_total: 9
+  tools_bound: 9
+  tools_unmapped_gated: unknown
+  note: >-
+    9 of 40 documented REST operations are covered by the candidate tool set;
+    the remaining 31 have no tool. The gated Infillion MCP server's own tool
+    count is unknown.

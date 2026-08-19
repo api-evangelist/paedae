@@ -1,0 +1,300 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gimbal REST Applications Communications API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Communications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all communications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://manager.gimbal.com/api/communications"
+          },
+          "docs": "Get all communications"
+        },
+        {
+          "info": {
+            "name": "Create communication",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://manager.gimbal.com/api/communications"
+          },
+          "docs": "Create communication"
+        },
+        {
+          "info": {
+            "name": "Get single communication",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://manager.gimbal.com/api/communications/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get single communication"
+        },
+        {
+          "info": {
+            "name": "Update communication",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://manager.gimbal.com/api/communications/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update communication"
+        },
+        {
+          "info": {
+            "name": "Delete communication",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://manager.gimbal.com/api/communications/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete communication"
+        },
+        {
+          "info": {
+            "name": "Publish communication",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://manager.gimbal.com/api/communications/:id/publish",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Publish communication"
+        },
+        {
+          "info": {
+            "name": "Stop communication",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://manager.gimbal.com/api/communications/:id/stop",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Stop communication"
+        },
+        {
+          "info": {
+            "name": "Get notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://manager.gimbal.com/api/communications/:id/notification",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get notification"
+        },
+        {
+          "info": {
+            "name": "Create notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://manager.gimbal.com/api/communications/:id/notification",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create notification"
+        },
+        {
+          "info": {
+            "name": "Delete notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://manager.gimbal.com/api/communications/:id/notification",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete notification"
+        },
+        {
+          "info": {
+            "name": "Get all geofence targets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://manager.gimbal.com/api/communications/:id/geofence_targets",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get all geofence targets"
+        },
+        {
+          "info": {
+            "name": "Create geofence targets",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://manager.gimbal.com/api/communications/:id/geofence_targets",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create geofence targets"
+        },
+        {
+          "info": {
+            "name": "Delete all geofence targets",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://manager.gimbal.com/api/communications/:id/geofence_targets",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete all geofence targets"
+        },
+        {
+          "info": {
+            "name": "Get geofence trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://manager.gimbal.com/api/communications/:id/geofence_trigger",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get geofence trigger"
+        },
+        {
+          "info": {
+            "name": "Create geofence trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://manager.gimbal.com/api/communications/:id/geofence_trigger",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create geofence trigger"
+        },
+        {
+          "info": {
+            "name": "Delete geofence trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://manager.gimbal.com/api/communications/:id/geofence_trigger",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete geofence trigger"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

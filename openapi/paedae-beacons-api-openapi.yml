@@ -27,6 +27,23 @@ paths:
           description: Success
         '401':
           $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: name
+        in: query
+        description: Filter by name (partial match).
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Page of results to return. If per_page is given but page is not, page defaults to 1.
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Number of items per page. If page is given but per_page is not, per_page defaults to 50. Pagination is only performed when page or per_page is sent.
+        schema:
+          type: integer
+          default: 50
     post:
       tags:
       - Beacons

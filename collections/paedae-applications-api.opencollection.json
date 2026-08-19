@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gimbal REST Applications API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Applications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://manager.gimbal.com/api/v2/applications"
+          },
+          "docs": "Retrieve all applications"
+        },
+        {
+          "info": {
+            "name": "Create new application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://manager.gimbal.com/api/v2/applications"
+          },
+          "docs": "Create new application"
+        },
+        {
+          "info": {
+            "name": "Get single application with configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://manager.gimbal.com/api/v2/applications/:applicationId",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get single application with configuration"
+        },
+        {
+          "info": {
+            "name": "Update application",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://manager.gimbal.com/api/v2/applications/:applicationId",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update application"
+        },
+        {
+          "info": {
+            "name": "Delete application (contact support required)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://manager.gimbal.com/api/v2/applications/:applicationId",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete application (contact support required)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

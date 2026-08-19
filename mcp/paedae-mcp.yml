@@ -1,51 +1,137 @@
-generated: '2026-07-20'
-method: derived
-source: openapi/paedae-rest-openapi.yml (candidate tools derived from operations)
+generated: '2026-08-13'
+method: probed
+source: >-
+  https://infillion.com/infillion-agent-connector/ (product page) and
+  https://infillion.com/blog/infillion-launches-infillion-agent-connector-a-new-way-of-managing-ai-controlled-buying-that-runs-on-the-first-agent-native-composable-platform-in-adtech/
+  (launch announcement, 2025-12-16); endpoint verified by live probe of
+  https://mcp.infillion.com/mcp on 2026-08-13. Candidate tool list below is
+  derived from openapi/paedae-rest-openapi.yml.
 type: MCPServer
-status: candidate
-provider: Paedae (Gimbal proximity platform)
-notes: >-
-  No official hosted/remote MCP server is published by Gimbal/Paedae. The
-  following is a candidate tool list derived from documented REST operations,
-  for a future MCP wrapper over the Gimbal Manager API.
-server:
-  transport: candidate
+provider: Paedae (Gimbal proximity platform, operated by Infillion)
+status: published-gated
+summary: >-
+  Infillion — the parent that operates the Gimbal proximity platform Paedae
+  built — ships a live remote MCP server, the "Infillion Agent Connector",
+  at https://mcp.infillion.com/mcp. It is OAuth-protected: an anonymous
+  tools/list POST returns HTTP 401 with
+  `WWW-Authenticate: Bearer realm="Infillion Gateway"` pointing at RFC 9728
+  protected-resource metadata, so the real tool list and inputSchemas could
+  not be read without credentials. The Gimbal Manager REST API itself
+  (manager.gimbal.com/api) has no MCP wrapper; the candidate tool list below
+  is derived from its documented operations.
+ownership_note: >-
+  mcp.infillion.com is a parent-brand host, not a third party: paedae.com and
+  gimbal.com both 301 to infillion.com, and Infillion's own launch post names
+  Gimbal as one of the unified technologies behind the platform ("MediaMath,
+  TrueX, Gimbal, and Drawbridge"). The Agent Connector is an agent-native
+  MEDIA EXECUTION layer, not a proximity/beacon API — do not read its presence
+  as MCP coverage of the Gimbal Manager REST surface.
+deployment:
+  mode: remote
+  endpoint: https://mcp.infillion.com/mcp
+  auth: oauth
+  verified: probed
+  scope: >-
+    Parent-company (Infillion) agent-native media execution layer. Not a
+    wrapper over the Gimbal Manager REST API documented in openapi/.
+hosted_server:
+  name: Infillion Agent Connector
+  vendor: Infillion
+  endpoint: https://mcp.infillion.com/mcp
+  transport: streamable-http
+  announced: '2025-12-16'
+  protocol: Model Context Protocol (MCP)
+  evidence:
+    - url: https://mcp.infillion.com/mcp
+      method: POST
+      body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+      http_status: 401
+      response: '{"error": "Missing Authorization header"}'
+      www_authenticate: 'Bearer realm="Infillion Gateway", resource_metadata="https://mcp.infillion.com/.well-known/oauth-protected-resource/mcp"'
+      fetched: '2026-08-13'
+    - url: https://mcp.infillion.com/.well-known/oauth-protected-resource/mcp
+      http_status: 200
+      file: ../well-known/paedae-mcp-oauth-protected-resource.json
+      fetched: '2026-08-13'
+    - url: https://mcp.infillion.com/.well-known/oauth-authorization-server
+      http_status: 200
+      file: ../well-known/paedae-mcp-oauth-authorization-server.json
+      fetched: '2026-08-13'
+  oauth:
+    issuer: https://mcp.infillion.com
+    authorization_endpoint: https://mcp.infillion.com/oauth/authorize
+    token_endpoint: https://mcp.infillion.com/oauth/token
+    registration_endpoint: https://mcp.infillion.com/register
+    dynamic_client_registration: true
+    grant_types_supported:
+      - authorization_code
+      - refresh_token
+    code_challenge_methods_supported:
+      - S256
+    scopes_supported: null
+    scopes_note: >-
+      The authorization server metadata publishes no `scopes_supported` array,
+      so the permission vocabulary is undiscoverable anonymously.
+  tools: null
+  tools_note: >-
+    tools/list is auth-gated (401). No llms.txt or public tool reference is
+    published on any Infillion host, so no tool names, descriptions or
+    inputSchemas can be recorded without authenticated introspection. Nothing
+    is guessed here.
+  gated_surfaces:
+    - path: /openapi.json
+      status: 401
+      note: >-
+        Returns 401 rather than 404 — an OpenAPI document appears to exist
+        behind the gateway's auth, but it cannot be read anonymously.
+    - path: /docs
+      status: 401
+    - path: /llms.txt
+      status: 401
+candidate_tools:
+  status: candidate
+  derived_from: openapi/paedae-rest-openapi.yml
   base_url: https://manager.gimbal.com/api
   auth: 'Authorization: Token token=<organization_server_api_key>'
-tools:
-  - name: list_applications
-    operationId: listApplications
-    method: GET
-    path: /v2/applications
-  - name: get_application
-    operationId: getApplication
-    method: GET
-    path: /v2/applications/{applicationId}
-  - name: list_places
-    operationId: listPlaces
-    method: GET
-    path: /v2/places
-  - name: create_place
-    operationId: createPlace
-    method: POST
-    path: /v2/places
-  - name: list_beacons
-    operationId: listBeacons
-    method: GET
-    path: /beacons
-  - name: get_beacon
-    operationId: getBeacon
-    method: GET
-    path: /beacons/{factoryId}
-  - name: list_communications
-    operationId: listCommunications
-    method: GET
-    path: /communications
-  - name: create_communication
-    operationId: createCommunication
-    method: POST
-    path: /communications
-  - name: publish_communication
-    operationId: publishCommunication
-    method: POST
-    path: /communications/{id}/publish
+  note: >-
+    A future MCP wrapper over the documented Gimbal Manager REST operations.
+    Nobody ships this today.
+  tools:
+    - name: list_applications
+      operationId: listApplications
+      method: GET
+      path: /v2/applications
+    - name: get_application
+      operationId: getApplication
+      method: GET
+      path: /v2/applications/{applicationId}
+    - name: list_places
+      operationId: listPlaces
+      method: GET
+      path: /v2/places
+    - name: create_place
+      operationId: createPlace
+      method: POST
+      path: /v2/places
+    - name: list_beacons
+      operationId: listBeacons
+      method: GET
+      path: /beacons
+    - name: get_beacon
+      operationId: getBeacon
+      method: GET
+      path: /beacons/{factoryId}
+    - name: list_communications
+      operationId: listCommunications
+      method: GET
+      path: /communications
+    - name: create_communication
+      operationId: createCommunication
+      method: POST
+      path: /communications
+    - name: publish_communication
+      operationId: publishCommunication
+      method: POST
+      path: /communications/{id}/publish
+crosswalk: mcp/paedae-tool-crosswalk.yml
+checked: '2026-08-13'

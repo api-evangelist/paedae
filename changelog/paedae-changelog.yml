@@ -1,0 +1,91 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://github.com/gimbalinc release/tag feeds (ios-gimbal-swift-package,
+  rtn-gimbal-sdk, airship-adapter-ios, airship-adapter-android,
+  ios-airship-adapter-swift-package) read 2026-08-13, plus registry publish
+  dates from CocoaPods trunk, Maven Central, npm and pub.dev.
+type: ChangeLog
+provider: Paedae (Gimbal proximity platform, operated by Infillion)
+summary: >-
+  Gimbal publishes NO dated changelog or release-notes page for the Manager
+  REST API — docs.gimbal.com has no /release_notes.html, /changelog.html or
+  per-SDK release notes page (all 403 from the static docs bucket). The only
+  dated change history the provider publishes is the GitHub release/tag feed
+  on its SDK repositories, recorded below. There is therefore no way for a
+  consumer to learn that a REST endpoint changed.
+api_changelog:
+  published: false
+  url: null
+  note: >-
+    The REST reference at docs.gimbal.com/rest.html is undated and unversioned
+    beyond the /v2 path prefix. No API changelog, no RSS, no "what's new".
+sdk_changelog:
+  published: true
+  scheme: semver, per-repository GitHub releases
+  discovery: >-
+    Not linked from docs.gimbal.com — reachable only by finding the
+    github.com/gimbalinc organization.
+entries:
+  - component: rtn-gimbal-sdk (React Native)
+    version: 0.4.0
+    date: '2026-06-29'
+    source: npm registry publish date
+    breaking: unknown
+    highlights: >-
+      Latest React Native SDK release. No GitHub release entry exists for
+      0.4.0 (the release feed stops at 0.3.1), so no notes are published.
+  - component: ios-gimbal-swift-package (iOS SDK v2)
+    version: 2.97.2
+    date: '2026-05-21'
+    source: https://github.com/gimbalinc/ios-gimbal-swift-package/releases
+    breaking: false
+    highlights: Current iOS SDK build; one patch ahead of the CocoaPods release.
+  - component: airship-adapter-ios
+    version: 5.0.2
+    date: '2026-02-06'
+    source: https://github.com/gimbalinc/airship-adapter-ios/releases
+    breaking: false
+    highlights: Patch on the 5.x line released 2026-01-18.
+  - component: airship-adapter-ios
+    version: 5.0.0
+    date: '2026-01-18'
+    source: https://github.com/gimbalinc/airship-adapter-ios/releases
+    breaking: true
+    highlights: Major version bump of the iOS Airship adapter.
+  - component: airship_adapter_flutter
+    version: 1.0.0
+    date: '2026-01-12'
+    source: https://pub.dev/packages/airship_adapter_flutter
+    breaking: false
+    highlights: First stable Flutter bridge for the Gimbal/Airship adapter.
+  - component: rtn-gimbal-airship-adapter
+    version: 1.6.1
+    date: '2026-02-10'
+    source: npm registry publish date
+    breaking: false
+  - component: ios-airship-adapter-swift-package
+    version: 4.4.0
+    date: '2025-10-15'
+    source: https://github.com/gimbalinc/ios-airship-adapter-swift-package/releases
+    breaking: false
+  - component: airship-adapter-android
+    version: 2.0.5
+    date: '2025-02-28'
+    source: https://github.com/gimbalinc/airship-adapter-android/releases
+    breaking: false
+  - component: gimbal-sdk (Android SDK v4)
+    version: 4.10.1
+    date: '2024-07-29'
+    source: Maven Central (com.gimbal.android.v4:gimbal-sdk)
+    breaking: false
+    highlights: >-
+      Most recent Android SDK release — two years old as of this pass, and not
+      reflected in the Android v4 developer guide, which still documents 4.2.0.
+platform_events:
+  - date: '2025-12-16'
+    event: >-
+      Infillion (Gimbal's parent) launched the Infillion Agent Connector, an
+      MCP-based agent-native media execution layer.
+    source: https://infillion.com/blog/infillion-launches-infillion-agent-connector-a-new-way-of-managing-ai-controlled-buying-that-runs-on-the-first-agent-native-composable-platform-in-adtech/
+window: 'Most recent release per component; feeds read 2026-08-13.'

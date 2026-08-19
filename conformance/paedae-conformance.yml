@@ -1,36 +1,108 @@
-generated: '2026-07-20'
-method: derived
+generated: '2026-08-13'
+method: searched
 source: >-
-  Derived from openapi/paedae-rest-openapi.yml and docs.gimbal.com/rest.html
+  https://docs.gimbal.com/rest.html; live probes of https://mcp.infillion.com
+  well-known metadata (2026-08-13); openapi/paedae-*-openapi.yml.
 type: Conformance
-provider: Paedae (Gimbal proximity platform)
+provider: Paedae (Gimbal proximity platform, operated by Infillion)
 standards:
   - id: oauth2
     conforms: true
     evidence: >-
-      OAuth 2.0 is used for select Proximity APIs and for the Gimbal Manager
-      portal login (manager.gimbal.com/auth/railsoauth, /oauth/authorize,
-      /oauth/token).
+      Two independent OAuth 2.0 surfaces. (1) The Gimbal transmitter/Proximity
+      APIs require a user access token
+      (`POST /api/v1/transmitters?access_token={token}`), with
+      manager.gimbal.com/oauth/authorize and /oauth/token. (2) The parent's MCP
+      gateway at mcp.infillion.com is a compliant OAuth 2.0 protected resource
+      issuing `WWW-Authenticate: Bearer realm="Infillion Gateway"` with PKCE
+      S256, authorization_code + refresh_token grants and dynamic client
+      registration.
+  - id: rfc9728
+    name: OAuth 2.0 Protected Resource Metadata
+    conforms: true
+    evidence: >-
+      https://mcp.infillion.com/.well-known/oauth-protected-resource and
+      /.well-known/oauth-protected-resource/mcp both return HTTP 200 with a
+      valid document naming the resource and its authorization server; the 401
+      challenge advertises the metadata URL. Saved to
+      well-known/paedae-mcp-oauth-protected-resource.json.
+  - id: rfc8414
+    name: OAuth 2.0 Authorization Server Metadata
+    conforms: true
+    evidence: >-
+      https://mcp.infillion.com/.well-known/oauth-authorization-server returns
+      HTTP 200 with issuer, authorization_endpoint, token_endpoint,
+      registration_endpoint, grant_types_supported,
+      code_challenge_methods_supported (S256) and response_types_supported.
+      Saved to well-known/paedae-mcp-oauth-authorization-server.json.
+      Deviation: no `scopes_supported`.
+  - id: rfc7591
+    name: OAuth 2.0 Dynamic Client Registration
+    conforms: true
+    evidence: >-
+      A registration_endpoint (https://mcp.infillion.com/register) is
+      advertised with token_endpoint_auth_methods_supported ["none"], i.e.
+      public clients may self-register — the pattern MCP clients rely on.
+  - id: mcp
+    name: Model Context Protocol
+    conforms: partial
+    evidence: >-
+      The parent ships a live remote MCP endpoint at
+      https://mcp.infillion.com/mcp with spec-correct OAuth discovery, but
+      tools/list is auth-gated (401) so protocol behaviour beyond the auth
+      handshake could not be verified anonymously. The Gimbal Manager REST API
+      itself has no MCP surface.
   - id: oidc
     conforms: false
     evidence: >-
-      No OpenID Connect discovery document is published
-      (/.well-known/openid-configuration returns 404).
+      No OpenID Connect discovery document on any host —
+      manager.gimbal.com/.well-known/openid-configuration 404,
+      mcp.infillion.com/.well-known/openid-configuration 404,
+      docs.gimbal.com 403 (static bucket).
   - id: rfc9457
     conforms: false
     evidence: >-
-      Errors use a Gimbal-specific numeric code envelope, not RFC 9457
+      Errors use a Gimbal-specific numeric code envelope (6000-9000), not
       application/problem+json.
+  - id: rfc8594
+    name: Sunset HTTP Header
+    conforms: false
+    evidence: >-
+      No Sunset or Deprecation header, and no deprecation policy, is
+      documented. See lifecycle/paedae-lifecycle.yml.
   - id: pagination
     conforms: true
     evidence: >-
-      Places and beacons collections support filtering and pagination per the
-      REST reference.
+      Page-number pagination via page/per_page with Total-{Resource},
+      Total-Pages and Current-Page response headers on GET /v2/places and
+      GET /beacons. Pagination is opt-in: omitting both parameters returns the
+      whole collection.
   - id: idempotency
     conforms: false
     evidence: No idempotency-key mechanism is documented.
   - id: webhooks
     conforms: true
     evidence: >-
-      Beacon sighting events are delivered via HTTP POST callbacks (Sightings
-      Callback).
+      Beacon/transmitter sighting events (Arrived/Sighted/Departed) are
+      delivered as HTTP POST callbacks to a customer-configured action URL,
+      with a `{}` verification POST at serve-rule creation time.
+  - id: openapi
+    conforms: false
+    evidence: >-
+      The provider publishes no OpenAPI, Swagger or any machine-readable
+      definition. Probed /openapi.json, /openapi.yaml, /swagger.json,
+      /api-docs, /v2/openapi.json and /redoc on manager.gimbal.com (404),
+      docs.gimbal.com (403 static bucket) and www.gimbal.com (404). The specs
+      in openapi/ were generated by API Evangelist from the HTML reference.
+  - id: asyncapi
+    conforms: false
+    evidence: >-
+      No AsyncAPI document is published for the sightings callback surface.
+compliance_certifications:
+  published: false
+  note: >-
+    No trust center, SOC 2, ISO 27001, PCI or HIPAA attestation is published on
+    infillion.com or gimbal.com — /security/ and /trust/ both 404, and the full
+    page sitemap contains no security or compliance page. The only published
+    governance documents are legal policies (privacy policy, terms of use,
+    beacon legal), not certifications.

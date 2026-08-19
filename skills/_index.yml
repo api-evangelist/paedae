@@ -1,10 +1,10 @@
-generated: '2026-07-20'
+generated: '2026-08-13'
 method: generated
 source: >-
-  Generated from openapi/paedae-rest-openapi.yml operations (grounded in real
+  Generated from openapi/paedae-*-openapi.yml operations (grounded in real
   documented operationIds from docs.gimbal.com/rest.html)
 type: AgentSkill
-provider: Paedae (Gimbal proximity platform)
+provider: Paedae (Gimbal proximity platform, operated by Infillion)
 skills:
   - name: paedae-manage-places
     file: paedae-manage-places.md
@@ -26,3 +26,13 @@ skills:
       - createCommunicationGeofenceTrigger
       - publishCommunication
       - stopCommunication
+  - name: paedae-page-through-inventory
+    file: paedae-page-through-inventory.md
+    description: >-
+      Page safely through places and beacons with page/per_page and the
+      resource-specific total headers, without pulling the whole estate.
+    operations:
+      - listPlaces
+      - listBeacons
+      - getPlace
+      - getBeacon

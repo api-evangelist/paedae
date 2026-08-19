@@ -1,12 +1,16 @@
-generated: '2026-07-20'
+generated: '2026-08-13'
 method: searched
-source: https://docs.gimbal.com/rest.html
+source: >-
+  https://docs.gimbal.com/rest.html (re-read 2026-08-13); live probe of
+  https://mcp.infillion.com/mcp and its OAuth metadata.
 type: Authentication
-provider: Paedae (Gimbal proximity platform)
+provider: Paedae (Gimbal proximity platform, operated by Infillion)
 summary: >-
-  The Gimbal REST API authenticates most requests with an organization server
-  API key passed in the Authorization header. Some Proximity APIs require an
-  OAuth 2.0 access token instead.
+  The Gimbal Manager REST API authenticates with an organization server API key
+  in the Authorization header. The transmitter (beacon) Proximity APIs instead
+  require an OAuth 2.0 user access token passed as a QUERY PARAMETER. The
+  parent's MCP gateway is a separate, spec-compliant OAuth 2.0 protected
+  resource.
 schemes:
   - id: OrganizationServerApiKey
     type: apiKey
@@ -14,18 +18,51 @@ schemes:
     header: Authorization
     format: 'Token token=my_organization_server_api_key'
     description: >-
-      Organization server API key issued in Gimbal Manager. Sent verbatim as
-      `Authorization: Token token=<key>`.
-    applies_to: Manager REST API (applications, places, beacons, communications)
+      Organization server API key issued in Gimbal Manager under Organizations.
+      Sent verbatim as `Authorization: Token token=<key>` — note the
+      `Token token=` prefix, which is not a standard Bearer scheme.
+    applies_to: >-
+      Manager REST API (applications, places, beacons, beacon configurations,
+      beacon tags, communications)
+    rotation_documented: false
   - id: ProximityOAuth2
     type: oauth2
     flow: authorizationCode
     authorization_url: https://manager.gimbal.com/oauth/authorize
     token_url: https://manager.gimbal.com/oauth/token
+    token_placement: query
+    token_param: access_token
     description: >-
-      Some Proximity APIs require an OAuth 2.0 access token rather than the
-      organization server API key. OAuth is also used by the Gimbal Manager
-      portal login (manager.gimbal.com/auth/railsoauth).
-    applies_to: Select Proximity APIs
+      The transmitter REST APIs are protected with OAuth and "must have a user
+      token passed as a query parameter" — e.g.
+      `POST /api/v1/transmitters?access_token={token}`. Access is restricted to
+      transmitters owned by the account associated with the token. OAuth also
+      backs the Gimbal Manager portal login
+      (manager.gimbal.com/auth/railsoauth).
+    scopes_documented: false
+    security_note: >-
+      Passing a bearer credential in the query string puts it in server logs,
+      proxy logs and Referer headers. This is the provider's documented
+      mechanism, recorded as found.
+    applies_to: Transmitter / Proximity APIs (/api/v1/transmitters)
+  - id: InfillionGatewayOAuth2
+    type: oauth2
+    flow: authorizationCode
+    pkce: S256
+    issuer: https://mcp.infillion.com
+    authorization_url: https://mcp.infillion.com/oauth/authorize
+    token_url: https://mcp.infillion.com/oauth/token
+    registration_url: https://mcp.infillion.com/register
+    token_placement: header
+    description: >-
+      Parent-brand gateway protecting the Infillion Agent Connector MCP
+      endpoint (https://mcp.infillion.com/mcp). An anonymous request returns
+      HTTP 401 with `WWW-Authenticate: Bearer realm="Infillion Gateway"` and an
+      RFC 9728 resource_metadata pointer. Supports dynamic client registration
+      for public clients.
+    scopes_documented: false
+    applies_to: Infillion Agent Connector (MCP) — NOT the Gimbal REST API
+    cross_ref: mcp/paedae-mcp.yml
 content_type: application/json
+unauthorized_status: 401
 docs: https://docs.gimbal.com/rest.html

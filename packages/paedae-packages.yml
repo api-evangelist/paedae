@@ -1,45 +1,197 @@
-generated: '2026-07-20'
+generated: '2026-08-13'
 method: searched
 source: >-
-  Verified on CocoaPods trunk (trunk.cocoapods.org/api/v1/pods/Gimbal) and
-  Maven Central (search.maven.org, g:com.gimbal.android.v4);
-  install docs at docs.gimbal.com
+  Registry metadata read 2026-08-13 from trunk.cocoapods.org/api/v1/pods/Gimbal,
+  search.maven.org (g:com.gimbal.android.v4, g:com.gimbal.android),
+  registry.npmjs.org, pub.dev/api/packages, and GitHub release/tag feeds on
+  github.com/gimbalinc. Install instructions at docs.gimbal.com.
 type: Packages
-provider: Paedae (Gimbal proximity platform)
+provider: Paedae (Gimbal proximity platform, operated by Infillion)
+github_org: https://github.com/gimbalinc
+legacy_github_org: https://github.com/PaeDae
 packages:
   - name: Gimbal
     registry: cocoapods
     ecosystem: ios
     coordinate: Gimbal
-    latest_version: 2.97.1
+    version: 2.97.1
+    published: '2026-03-23'
     official: true
     url: https://cocoapods.org/pods/Gimbal
     description: Gimbal iOS SDK v2 for proximity, geofencing, and beacon detection.
+    note: 52 published versions on the CocoaPods trunk; 2.97.1 is the current release.
+  - name: ios-gimbal-swift-package
+    registry: swiftpm
+    ecosystem: ios
+    coordinate: https://github.com/gimbalinc/ios-gimbal-swift-package
+    version: 2.97.2
+    published: '2026-05-21'
+    official: true
+    url: https://github.com/gimbalinc/ios-gimbal-swift-package
+    description: Swift Package Manager distribution of the Gimbal iOS SDK v2.
+    note: >-
+      Swift Package Manager has no central registry metadata endpoint; version
+      and date read from the repository's GitHub release/tag feed. This is the
+      freshest first-party Gimbal SDK build — one patch ahead of the CocoaPod.
   - name: gimbal-sdk
     registry: maven-central
     ecosystem: android
     coordinate: com.gimbal.android.v4:gimbal-sdk
-    latest_version: 4.10.1
+    version: 4.10.1
+    published: '2024-07-29'
     official: true
     url: https://central.sonatype.com/artifact/com.gimbal.android.v4/gimbal-sdk
     description: Gimbal Android SDK v4 for proximity, geofencing, and beacon detection.
+    note: >-
+      Two years since the last Android SDK release, while the iOS line shipped
+      2.97.2 in May 2026. The Android v4 developer guide still instructs
+      `implementation 'com.gimbal.android.v4:gimbal-sdk:4.2.0'` — eight minor
+      versions behind what Maven Central actually serves.
   - name: gimbal-slf4j-impl
     registry: maven-central
     ecosystem: android
     coordinate: com.gimbal.android.v4:gimbal-slf4j-impl
-    latest_version: 4.10.1
+    version: 4.10.1
+    published: '2024-07-29'
     official: true
     url: https://central.sonatype.com/artifact/com.gimbal.android.v4/gimbal-slf4j-impl
-    description: SLF4J logging implementation companion for the Gimbal Android SDK.
-  - name: airship-adapter
+    description: SLF4J logging implementation companion for the Gimbal Android SDK v4.
+  - name: airship-adapter (android, current group)
+    registry: maven-central
+    ecosystem: android
+    coordinate: com.gimbal.android:airship-adapter
+    version: 2.0.5
+    published: '2025-03-09'
+    official: true
+    url: https://central.sonatype.com/artifact/com.gimbal.android/airship-adapter
+    description: >-
+      Adapter turning Gimbal place events into Airship custom events on Android.
+      Source at github.com/gimbalinc/airship-adapter-android.
+  - name: airship-adapter (android, legacy v4 group)
     registry: maven-central
     ecosystem: android
     coordinate: com.gimbal.android.v4:airship-adapter
-    latest_version: 1.0.0
+    version: 1.0.0
+    published: '2022-10-18'
     official: true
     url: https://central.sonatype.com/artifact/com.gimbal.android.v4/airship-adapter
-    description: Adapter integrating the Gimbal Android SDK with Airship.
+    description: Superseded by com.gimbal.android:airship-adapter 2.x.
+  - name: rtn-gimbal-sdk
+    registry: npm
+    ecosystem: react-native
+    coordinate: rtn-gimbal-sdk
+    version: 0.4.0
+    published: '2026-06-29'
+    official: true
+    url: https://www.npmjs.com/package/rtn-gimbal-sdk
+    repository: https://github.com/gimbalinc/rtn-gimbal-sdk
+    description: Gimbal SDK for React Native (Turbo Native module).
+    note: >-
+      Still pre-1.0 after three and a half years, but actively released — 0.4.0
+      landed on npm in June 2026.
+  - name: rtn-gimbal-airship-adapter
+    registry: npm
+    ecosystem: react-native
+    coordinate: rtn-gimbal-airship-adapter
+    version: 1.6.1
+    published: '2026-02-10'
+    official: true
+    url: https://www.npmjs.com/package/rtn-gimbal-airship-adapter
+    repository: https://github.com/gimbalinc/rtn-gimbal-airship-adapter
+    description: React Native Gimbal-to-Airship adapter.
+    note: >-
+      The published npm `description` field is literally "test" — the package
+      is real and current, its registry metadata is not maintained.
+  - name: cordova-plugin-gimbal-airship-adapter
+    registry: npm
+    ecosystem: cordova
+    coordinate: cordova-plugin-gimbal-airship-adapter
+    version: 0.0.2
+    published: '2023-04-10'
+    official: true
+    url: https://www.npmjs.com/package/cordova-plugin-gimbal-airship-adapter
+    repository: https://github.com/gimbalinc/airship-adapter-cordova
+    description: Cordova plugin bridging Gimbal PlaceEvents to Airship CustomEvents.
+    note: Unmaintained since April 2023 and never past 0.0.x.
+  - name: airship_adapter_flutter
+    registry: pub.dev
+    ecosystem: flutter
+    coordinate: airship_adapter_flutter
+    version: 1.0.0
+    published: '2026-01-12'
+    official: true
+    url: https://pub.dev/packages/airship_adapter_flutter
+    repository: https://github.com/gimbalinc/GimbalFlutterPlugin
+    description: >-
+      Flutter bridge for the Gimbal-to-Airship adapter with location-based
+      event monitoring.
+    note: >-
+      Published from the gimbalinc GitHub org but carries no pub.dev verified
+      publisher (publisherId is null), so pub.dev itself does not attest
+      first-party ownership — the repository link does.
+  - name: ios-airship-adapter-swift-package
+    registry: swiftpm
+    ecosystem: ios
+    coordinate: https://github.com/gimbalinc/ios-airship-adapter-swift-package
+    version: 4.4.0
+    published: '2025-10-15'
+    official: true
+    url: https://github.com/gimbalinc/ios-airship-adapter-swift-package
+    description: Swift Package distribution of the Gimbal-to-Airship iOS adapter.
+    note: Version/date from the repository release feed; SwiftPM has no registry API.
+  - name: airship-adapter-ios
+    registry: source
+    ecosystem: ios
+    coordinate: https://github.com/gimbalinc/airship-adapter-ios
+    version: 5.0.2
+    published: '2026-02-06'
+    official: true
+    url: https://github.com/gimbalinc/airship-adapter-ios
+    description: Gimbal-to-Airship iOS adapter, distributed from source/releases.
+    note: >-
+      Not published to CocoaPods trunk under this name; version read from the
+      GitHub release feed.
+  - name: react-native-gimbal
+    registry: npm
+    ecosystem: react-native
+    coordinate: react-native-gimbal
+    version: 1.0.0
+    published: '2022-05-03'
+    official: true
+    url: https://www.npmjs.com/package/react-native-gimbal
+    repository: https://github.com/PaeDae/react-native-gimbal-sdk
+    description: Legacy React Native module for the Gimbal SDK.
+    note: >-
+      Published from the PaeDae GitHub org — this repo's namesake — and
+      superseded by rtn-gimbal-sdk. Dead since May 2022; recorded for lineage,
+      not as a current option.
+  - name: gimbal-sdk-xamarin
+    registry: null
+    ecosystem: xamarin
+    coordinate: https://github.com/gimbalinc/gimbal-sdk-xamarin
+    version: null
+    published: null
+    official: true
+    url: https://github.com/gimbalinc/gimbal-sdk-xamarin
+    description: Xamarin bindings for the Gimbal SDK.
+    note: >-
+      Checked NuGet (azuresearch-usnc.nuget.org query for "gimbal") — zero
+      hits, and the repository publishes no tags or releases, so there is no
+      version to record. Source-only distribution.
+  - name: gimbal-sdk (v3)
+    registry: maven-central
+    ecosystem: android
+    coordinate: com.gimbal.android.v3:gimbal-sdk
+    version: 3.2.3
+    published: '2018-10-11'
+    official: true
+    url: https://central.sonatype.com/artifact/com.gimbal.android.v3/gimbal-sdk
+    description: Superseded Android SDK v3. Retained for migration reference only.
 notes: >-
-  iOS SDK v2 and Android SDK v4 are the current first-party mobile SDKs. The
-  latest builds are also distributed via the SDK Downloads section of Gimbal
-  Manager (manager.gimbal.com). No first-party REST client library is published.
+  Gimbal's first-party client surface is mobile SDKs, not REST clients — there
+  is no published client library for the Gimbal Manager REST API in any
+  registry, in any language. The live lines are iOS (CocoaPods + SwiftPM,
+  2026-05) and React Native (npm, 2026-06); Android has not shipped since
+  2024-07 and the Android docs point at a version eight releases stale. The
+  latest builds are also distributed as zips from the SDK Downloads section of
+  Gimbal Manager (manager.gimbal.com), which requires a login.

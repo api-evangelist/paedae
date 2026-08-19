@@ -1,0 +1,44 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.gimbal.com/rest.html (200, full text searched 2026-08-13 —
+  zero occurrences of "rate limit", "throttle", "quota", "429" or
+  "Retry-After"); https://mcp.infillion.com/mcp (401, no RateLimit headers on
+  the anonymous response).
+type: RateLimits
+provider: Paedae (Gimbal proximity platform, operated by Infillion)
+limit_count: 0
+documented: false
+summary: >-
+  The Gimbal REST reference publishes no rate limits at all. It enumerates its
+  response statuses explicitly — 200, 401, 404, 422, 500 — and 429 is not
+  among them, so there is not even an implied throttling contract. No
+  X-RateLimit-*, RateLimit-* or Retry-After header is documented anywhere on
+  the developer surface, and none was observed on an anonymous request. An
+  agent integrating this API has no runtime signal to back off on.
+limits: []
+response_headers:
+  rate_limit_headers: []
+  note: >-
+    The only response headers the reference documents are pagination counters
+    on collection endpoints — Total-Places / Total-Beacons, Total-Pages and
+    Current-Page — which are unrelated to throttling. See
+    conventions/paedae-conventions.yml.
+exhaustion:
+  status_code: null
+  retry_after: false
+  note: >-
+    No exhaustion behaviour is documented. 429 does not appear in the
+    reference's response-status table.
+gated_surface:
+  url: https://mcp.infillion.com/mcp
+  note: >-
+    The parent's MCP gateway is OAuth-gated (401); any limits it enforces are
+    behind that gate and were not observable anonymously.
+evidence:
+  - url: https://docs.gimbal.com/rest.html
+    status: 200
+    note: Full document text searched; no rate-limit language present.
+  - url: https://mcp.infillion.com/mcp
+    status: 401
+    note: No RateLimit-* or Retry-After headers on the challenge response.

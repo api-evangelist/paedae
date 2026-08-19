@@ -1,39 +1,118 @@
-generated: '2026-07-20'
+generated: '2026-08-13'
 method: searched
-source: https://docs.gimbal.com/rest.html
+source: https://docs.gimbal.com/rest.html (re-read in full 2026-08-13)
 type: Conventions
-provider: Paedae (Gimbal proximity platform)
+provider: Paedae (Gimbal proximity platform, operated by Infillion)
 auth_style:
   primary: apiKey
   header: Authorization
   format: 'Token token=<organization_server_api_key>'
-  secondary: oauth2 (select Proximity APIs)
+  issued_in: Gimbal Manager > Organizations
+  secondary: oauth2
+  secondary_detail: >-
+    The transmitter (beacon) Proximity APIs are protected with OAuth and take
+    the user token as a QUERY PARAMETER, not a header:
+    `POST /api/v1/transmitters?access_token={token}`. Those endpoints are
+    scoped to transmitters owned by the account behind the token.
   cross_ref: authentication/paedae-authentication.yml
 content_type:
   request: application/json
   response: application/json
+  note: >-
+    The reference instructs `Content-Type: application/json` on requests;
+    paginated responses are returned as `application/json; charset=utf-8`.
 pagination:
-  style: query-parameters
+  style: page-number
+  params:
+    - name: page
+      description: >-
+        Page of results to return. If per_page is given but page is not,
+        page defaults to 1.
+    - name: per_page
+      description: >-
+        Items per page. If page is given but per_page is not, per_page
+        defaults to 50.
+  opt_in: >-
+    Pagination is performed ONLY when page or per_page is sent. With neither
+    parameter the endpoint returns the entire collection unpaginated — a real
+    blast-radius concern for an agent listing a large estate.
+  response_headers:
+    - name: Total-Places
+      applies_to: GET /v2/places
+      description: Total records matching the filters; zero when none match.
+    - name: Total-Beacons
+      applies_to: GET /beacons
+      description: Total records matching the filters; zero when none match.
+    - name: Total-Pages
+      description: >-
+        Total pages (total records / per_page). NOT sent when no records match.
+    - name: Current-Page
+      description: >-
+        Echo of the page query parameter. NOT sent when no records match.
   supported_on:
     - GET /v2/places
     - GET /beacons
-  notes: >-
-    Places and beacons collections support filtering and pagination per the
-    reference; exact parameter names are not fully enumerated in the public docs.
+  note: >-
+    Resource-specific header names (Total-Places vs Total-Beacons) mean a
+    generic client cannot read the total count without knowing the resource.
+filtering:
+  params:
+    - name: name
+      description: Filter by name; partial match.
+    - name: attribute_key{n} / attribute_value{n}
+      description: >-
+        Paired custom-attribute filters. When a key and value share the same
+        trailing number, BOTH must match — `?attribute_key1=hello&attribute_value1=world`
+        matches only records whose attribute "hello" equals "world".
+  supported_on:
+    - GET /v2/places
+    - GET /beacons
+field_expansion:
+  supported: false
+metadata:
+  supported: true
+  mechanism: >-
+    Custom attributes (key/value) on places and beacons, filterable via the
+    attribute_key{n}/attribute_value{n} query parameters.
+request_id_tracing:
+  supported: false
+  note: No request-id or correlation header is documented.
 idempotency:
   supported: false
   notes: >-
-    No idempotency-key mechanism is documented. Create operations are plain POST.
+    No idempotency-key mechanism is documented. Create operations are plain
+    POSTs, and the beacon-tag update semantics are destructive by design
+    (POST /beacons/{factory_id}/tags deletes all existing tags then creates
+    the supplied set), so a duplicate call is not benign.
 versioning:
-  style: path-prefix (/v2 on applications and places)
+  style: path-prefix
+  detail: >-
+    /v2 on applications and places; /beacons and /communications are
+    unversioned; the transmitter endpoints are /v1. Three version conventions
+    coexist on one base URL.
   cross_ref: lifecycle/paedae-lifecycle.yml
 error_envelope:
   style: numeric-code
-  notes: HTTP status code plus a Gimbal numeric error code (6000-9000) and message.
+  notes: >-
+    HTTP status code plus a Gimbal numeric error code (6000-9000) and message.
+    Not RFC 9457.
   cross_ref: errors/paedae-problem-types.yml
 rate_limiting:
   documented: false
+  cross_ref: rate-limits/paedae-rate-limits.yml
 webhooks:
   present: true
+  verification: >-
+    On serve-rule creation Gimbal test-POSTs the configured action URL with
+    `Content-Type: application/json` and `{}` as the body — the receiver must
+    tolerate an empty payload.
   cross_ref: asyncapi/paedae-webhooks.yml
+docs_currency:
+  finding: >-
+    The Android v4 developer guide still instructs
+    `implementation 'com.gimbal.android.v4:gimbal-sdk:4.2.0'` and calls it "the
+    current SDK V4 version as of this writing", while Maven Central has served
+    4.10.1 since 2024-07-29. The documented dependency is eight minor versions
+    stale.
+  source: https://docs.gimbal.com/android/v4/devguide.html
 docs: https://docs.gimbal.com/rest.html

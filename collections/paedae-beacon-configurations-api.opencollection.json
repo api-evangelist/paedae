@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gimbal REST Applications Beacon Configurations API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Beacon Configurations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://manager.gimbal.com/api/beacon_configurations"
+          },
+          "docs": "Get all configurations"
+        },
+        {
+          "info": {
+            "name": "Create configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://manager.gimbal.com/api/beacon_configurations"
+          },
+          "docs": "Create configuration"
+        },
+        {
+          "info": {
+            "name": "Get specific configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://manager.gimbal.com/api/beacon_configurations/:configurationId",
+            "params": [
+              {
+                "name": "configurationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get specific configuration"
+        },
+        {
+          "info": {
+            "name": "Update configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://manager.gimbal.com/api/beacon_configurations/:configurationId",
+            "params": [
+              {
+                "name": "configurationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update configuration"
+        },
+        {
+          "info": {
+            "name": "Delete configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://manager.gimbal.com/api/beacon_configurations/:configurationId",
+            "params": [
+              {
+                "name": "configurationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete configuration"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

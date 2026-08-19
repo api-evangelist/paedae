@@ -1,20 +1,91 @@
-generated: '2026-07-20'
+generated: '2026-08-13'
 method: probed
-source: Live HTTP probes 2026-07-20
+source: Live HTTP probes 2026-08-13 (round 2); previous round 2026-07-20
 type: WellKnown
-provider: Paedae (Gimbal proximity platform)
+provider: Paedae (Gimbal proximity platform, operated by Infillion)
 notes: >-
-  No .well-known resources are published on the Gimbal/Manager hosts. The docs
-  host returns 403 for well-known paths; the Manager host returns 404 for
-  OIDC/OAuth metadata. Recorded as honest negative results.
+  The Gimbal developer hosts (docs.gimbal.com, manager.gimbal.com) and the
+  parent marketing hosts (www.gimbal.com, infillion.com) publish NO .well-known
+  documents — docs.gimbal.com is an S3-backed static site that answers 403
+  AccessDenied for any missing key, and the other hosts 404. The only real
+  .well-known documents in this company's estate are served by the parent's
+  MCP gateway at mcp.infillion.com, which publishes RFC 9728 OAuth protected
+  resource metadata and RFC 8414 authorization server metadata (both HTTP 200,
+  application/json, saved verbatim below). Gimbal is operated by Infillion
+  (gimbal.com and paedae.com both 301 to infillion.com), so mcp.infillion.com
+  is a host this company controls.
 probes:
+  - host: mcp.infillion.com
+    path: /.well-known/oauth-protected-resource
+    status: 200
+    content_type: application/json
+    file: paedae-mcp-oauth-protected-resource.json
+  - host: mcp.infillion.com
+    path: /.well-known/oauth-protected-resource/mcp
+    status: 200
+    content_type: application/json
+    file: paedae-mcp-oauth-protected-resource.json
+  - host: mcp.infillion.com
+    path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json
+    file: paedae-mcp-oauth-authorization-server.json
+  - host: mcp.infillion.com
+    path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - host: mcp.infillion.com
+    path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - host: mcp.infillion.com
+    path: /.well-known/agent.json
+    status: 404
+    file: null
+  - host: mcp.infillion.com
+    path: /.well-known/security.txt
+    status: 404
+    file: null
   - host: docs.gimbal.com
     path: /.well-known/security.txt
+    status: 403
+    file: null
+    note: S3 AccessDenied — static docs bucket returns 403 for every missing key.
+  - host: docs.gimbal.com
+    path: /.well-known/openid-configuration
+    status: 403
+    file: null
+  - host: docs.gimbal.com
+    path: /.well-known/oauth-authorization-server
+    status: 403
+    file: null
+  - host: docs.gimbal.com
+    path: /.well-known/oauth-protected-resource
+    status: 403
+    file: null
+  - host: docs.gimbal.com
+    path: /.well-known/api-catalog
+    status: 403
+    file: null
+  - host: docs.gimbal.com
+    path: /.well-known/ai-plugin.json
+    status: 403
+    file: null
+  - host: docs.gimbal.com
+    path: /.well-known/agent-card.json
+    status: 403
+    file: null
+  - host: docs.gimbal.com
+    path: /.well-known/agent.json
     status: 403
     file: null
   - host: docs.gimbal.com
     path: /llms.txt
     status: 403
+    file: null
+  - host: manager.gimbal.com
+    path: /.well-known/security.txt
+    status: 404
     file: null
   - host: manager.gimbal.com
     path: /.well-known/openid-configuration
@@ -24,11 +95,75 @@ probes:
     path: /.well-known/oauth-authorization-server
     status: 404
     file: null
+  - host: manager.gimbal.com
+    path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+  - host: manager.gimbal.com
+    path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - host: manager.gimbal.com
+    path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - host: manager.gimbal.com
+    path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - host: manager.gimbal.com
+    path: /.well-known/agent.json
+    status: 404
+    file: null
+  - host: manager.gimbal.com
+    path: /llms.txt
+    status: 404
+    file: null
   - host: infillion.com
     path: /.well-known/security.txt
     status: 404
     file: null
   - host: infillion.com
+    path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - host: infillion.com
+    path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - host: infillion.com
+    path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - host: infillion.com
+    path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - host: infillion.com
+    path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - host: infillion.com
+    path: /.well-known/agent.json
+    status: 404
+    file: null
+  - host: infillion.com
+    path: /llms.txt
+    status: 404
+    file: null
+  - host: www.gimbal.com
+    path: /.well-known/security.txt
+    status: 404
+    file: null
+  - host: www.gimbal.com
+    path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - host: www.gimbal.com
+    path: /.well-known/agent.json
+    status: 404
+    file: null
+  - host: www.gimbal.com
     path: /llms.txt
     status: 404
     file: null
