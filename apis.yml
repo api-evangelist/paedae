@@ -53,6 +53,8 @@ apis:
   humanURL: https://docs.gimbal.com/rest.html
   baseURL: https://manager.gimbal.com/api
   tags:
+  - Application
+  tags_raw:
   - Applications
   properties:
   - type: OpenAPI
