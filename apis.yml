@@ -30,15 +30,20 @@ deliveryModel:
   method: derived
 accessModel:
   pricing: unknown
-  onboarding: self-serve
+  onboarding: approval
   trial: false
   try_now: false
   public: false
-  label: Self-serve signup
+  label: Requires approval
   confidence: medium
   source:
+  - plans
   - authentication
-  generated: '2026-07-22'
+  - scopes
+  - rate-limits
+  - security
+  - {url: 'https://www.gimbal.com', status: 301, note: 'declared website redirects to https://infillion.com/ — a different registrable domain (gimbal.com -> infillion.com), possible rename or acquisition (probed 2026-09-03, roadmap#169)'}
+  generated: '2026-09-03'
   method: derived
 specificationVersion: '0.23'
 created: '2026-07-17'
@@ -182,8 +187,9 @@ apis:
   - type: Conformance
     url: conformance/paedae-conformance.yml
 common:
-- type: MCPServer
+- type: X-MCPServerCandidate
   url: mcp/paedae-mcp.yml
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
 - type: DomainSecurity
   url: security/paedae-domain-security.yml
 - type: OAuthScopes
