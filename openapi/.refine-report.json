@@ -1,11 +1,7 @@
 {
   "provider": "paedae",
   "sources": [
-    "paedae-applications-api-openapi.yml",
-    "paedae-beacon-configurations-api-openapi.yml",
-    "paedae-beacons-api-openapi.yml",
-    "paedae-communications-api-openapi.yml",
-    "paedae-places-api-openapi.yml"
+    "_original/paedae-rest-openapi.yml"
   ],
   "outputs": [
     "paedae-applications-api-openapi.yml",
@@ -17,6 +13,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "paedae-rest-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "paedae-applications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "paedae-beacon-configurations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "paedae-beacons-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "paedae-communications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "paedae-places-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
