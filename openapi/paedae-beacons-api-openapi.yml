@@ -141,12 +141,12 @@ paths:
           description: Success
 components:
   responses:
-    Unauthorized:
-      description: Unauthorized (401)
     NotFound:
       description: Resource Not Found (404)
     Unprocessable:
       description: Unprocessable Entity (422)
+    Unauthorized:
+      description: Unauthorized (401)
   securitySchemes:
     OrganizationServerApiKey:
       type: apiKey
