@@ -95,10 +95,10 @@ components:
   responses:
     Unauthorized:
       description: Unauthorized (401)
-    Unprocessable:
-      description: Unprocessable Entity (422)
     NotFound:
       description: Resource Not Found (404)
+    Unprocessable:
+      description: Unprocessable Entity (422)
   securitySchemes:
     OrganizationServerApiKey:
       type: apiKey
